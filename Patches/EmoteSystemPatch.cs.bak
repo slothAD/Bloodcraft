@@ -105,15 +105,15 @@ internal static class EmoteSystemPatch
                 {
                     if (playerCharacter.HasBuff(_dominateBuff) && EmoteActions.ContainsKey(useEmoteEvent.Action))
                     {
-                        LocalizationService.HandleServerReply(EntityManager, user, "使用支配型態時無法使用表情動作！");
+                        LocalizationService.HandleServerReply(EntityManager, user, "You can't use emote actions when using dominate form!");
                     }
                     else if (playerCharacter.HasBuff(_takeFlightBuff) && EmoteActions.ContainsKey(useEmoteEvent.Action))
                     {
-                        LocalizationService.HandleServerReply(EntityManager, user, "使用蝙蝠型態時無法使用表情動作！");
+                        LocalizationService.HandleServerReply(EntityManager, user, "You can't use emote actions when using bat form!");
                     }
                     else if (useEmoteEvent.Action.Equals(_beckonAbilityGroup) && playerCharacter.PlayerInCombat())
                     {
-                        LocalizationService.HandleServerReply(EntityManager, user, "戰鬥中無法與使魔互動！");
+                        LocalizationService.HandleServerReply(EntityManager, user, "You can't interact with your familiar during combat!");
                     }
                     else if (EmoteActions.TryGetValue(useEmoteEvent.Action, out var action)) action.Invoke(user, playerCharacter, steamId);
                 }
@@ -129,7 +129,7 @@ internal static class EmoteSystemPatch
         if (!ShapeshiftCache.TryGetShapeshiftBuff(steamId, out PrefabGUID shapeshiftBuff))
         {
             BlockShapeshift.Add(steamId);
-            LocalizationService.HandleServerReply(EntityManager, user, "請先選擇你已解鎖的型態！('<color=white>.prestige sf [<color=orange>進化吸血鬼|墮落蛇靈</color>]</color>')");
+            LocalizationService.HandleServerReply(EntityManager, user, "Select a form you've unlocked first! ('<color=white>.prestige sf [<color=orange>EvolvedVampire|CorruptedSerpent</color>]</color>')");
             return;
         }
 
@@ -172,7 +172,7 @@ internal static class EmoteSystemPatch
                 {
                     if (!_familiarPvP && playerCharacter.HasBuff(_pvpCombatBuff))
                     {
-                        LocalizationService.HandleServerReply(EntityManager, user, "PvP 戰鬥中無法召喚使魔！");
+                        LocalizationService.HandleServerReply(EntityManager, user, "You can't call your familiar during PvP combat!");
                         return;
                     }
                     else CallFamiliar(playerCharacter, familiar, user, steamId);
@@ -189,25 +189,25 @@ internal static class EmoteSystemPatch
             }
             else
             {
-                LocalizationService.HandleServerReply(EntityManager, user, "啟用中的使魔不存在！如有異常請嘗試 '<color=white>.fam reset</color>'。");
+                LocalizationService.HandleServerReply(EntityManager, user, "Active familiar doesn't exist! If that doesn't seem right try using '<color=white>.fam reset</color>'.");
             }
         }
         else
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "找不到啟用中的使魔……");
+            LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
         }
     }
     public static void CombatMode(User user, Entity playerCharacter, ulong steamId)
     {
         if (!_familiarCombat)
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "使魔戰鬥系統尚未啟用。");
+            LocalizationService.HandleServerReply(EntityManager, user, "Familiar combat is not enabled.");
             return;
         }
 
         if (playerCharacter.PlayerInCombat())
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "PvE/PvP 戰鬥中無法切換使魔戰鬥模式！");
+            LocalizationService.HandleServerReply(EntityManager, user, "You can't toggle familiar combat mode during PvE/PvP combat!");
             return;
         }
         else if (steamId.HasActiveFamiliar())
@@ -216,7 +216,7 @@ internal static class EmoteSystemPatch
 
             if (!familiar.Exists())
             {
-                LocalizationService.HandleServerReply(EntityManager, user, "找不到啟用中的使魔……");
+                LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
                 return;
             }
             else if (familiar.HasBuff(_invulnerableBuff))
@@ -226,7 +226,7 @@ internal static class EmoteSystemPatch
                 EnableAggro(familiar);
                 Familiars.EnableAggroable(familiar);
 
-                LocalizationService.HandleServerReply(EntityManager, user, "使魔戰鬥 <color=green>已啟用</color>。");
+                LocalizationService.HandleServerReply(EntityManager, user, "Familiar combat <color=green>enabled</color>.");
             }
             else
             {
@@ -235,12 +235,12 @@ internal static class EmoteSystemPatch
                 DisableAggro(familiar);
                 Familiars.DisableAggroable(familiar);
 
-                LocalizationService.HandleServerReply(EntityManager, user, "使魔戰鬥 <color=red>已停用</color>。");
+                LocalizationService.HandleServerReply(EntityManager, user, "Familiar combat <color=red>disabled</color>.");
             }
         }
         else
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "找不到啟用中的使魔……");
+            LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
         }
     }
     public static void InteractMode(User user, Entity playerCharacter, ulong steamId)
@@ -252,14 +252,14 @@ internal static class EmoteSystemPatch
 
         if (activeFamiliarData.Dismissed)
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "使魔解散狀態下無法互動！");
+            LocalizationService.HandleServerReply(EntityManager, user, "Can't interact with familiar when dismissed!");
             return;
         }
         else if (familiar.Exists() && servant.Exists())
         {
             if (familiar.HasBuff(_vanishBuff))
             {
-                LocalizationService.HandleServerReply(EntityManager, user, "使魔綁定或解除中無法互動！");
+                LocalizationService.HandleServerReply(EntityManager, user, "Can't interact with familiar when binding/unbinding!");
                 return;
             }
 

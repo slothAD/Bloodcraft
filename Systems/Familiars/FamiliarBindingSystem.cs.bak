@@ -236,7 +236,7 @@ internal static class FamiliarBindingSystem
                 else
                 {
                     familiar.Destroy();
-                    LocalizationService.HandleServerReply(EntityManager, user, $"綁定失敗……");
+                    LocalizationService.HandleServerReply(EntityManager, user, $"Binding failed...");
 
                     return false;
                 }

@@ -431,13 +431,13 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Daily] = (GenerateQuestObjective(goal, targets, QuestType.Daily), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#00FFFF>每日任務</color> 已刷新！");
+                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#00FFFF>Daily Quest</color> has been refreshed!");
 
                     goal = targetTypes.Last();
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Weekly] = (GenerateQuestObjective(goal, targets, QuestType.Weekly), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#BF40BF>每週任務</color> 已刷新！");
+                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#BF40BF>Weekly Quest</color> has been refreshed!");
                 }
                 else if (refreshDaily)
                 {
@@ -445,7 +445,7 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Daily] = (GenerateQuestObjective(goal, targets, QuestType.Daily), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#00FFFF>每日任務</color> 已刷新！");
+                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#00FFFF>Daily Quest</color> has been refreshed!");
                 }
                 else if (refreshWeekly)
                 {
@@ -453,7 +453,7 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Weekly] = (GenerateQuestObjective(goal, targets, QuestType.Weekly), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#BF40BF>每週任務</color> 已刷新！");
+                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#BF40BF>Weekly Quest</color> has been refreshed!");
                 }
 
                 steamId.SetPlayerQuests(questData);
@@ -601,7 +601,7 @@ internal static class QuestSystem
                         questData[QuestType.Daily] = (GenerateQuestObjective(goal, targets, QuestType.Daily), 0, DateTime.UtcNow);
 
                         var dailyQuest = questData[QuestType.Daily];
-                        LocalizationService.HandleServerReply(EntityManager, user, $"新的 <color=#00FFFF>每日任務</color> 可用：<color=green>{dailyQuest.Objective.Goal}</color> <color=white>{dailyQuest.Objective.Target.GetLocalizedName()}</color>x<color=#FFC0CB>{dailyQuest.Objective.RequiredAmount}</color> [<color=white>{dailyQuest.Progress}</color>/<color=yellow>{dailyQuest.Objective.RequiredAmount}</color>]");
+                        LocalizationService.HandleServerReply(EntityManager, user, $"New <color=#00FFFF>Daily Quest</color> available: <color=green>{dailyQuest.Objective.Goal}</color> <color=white>{dailyQuest.Objective.Target.GetLocalizedName()}</color>x<color=#FFC0CB>{dailyQuest.Objective.RequiredAmount}</color> [<color=white>{dailyQuest.Progress}</color>/<color=yellow>{dailyQuest.Objective.RequiredAmount}</color>]");
                     }
                 }
             }

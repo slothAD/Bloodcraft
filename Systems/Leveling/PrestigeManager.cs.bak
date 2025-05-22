@@ -398,14 +398,14 @@ internal static class PrestigeManager
             string reductionPercentage = (reductionFactor * 100).ToString("F2") + "%";
             string gainPercentage = (gainFactor * 100).ToString("F2") + "%";
 
-            ctx.Reply($"<color=#90EE90>{parsedPrestigeType}</color> 轉生資訊：");
-            ctx.Reply($"目前轉生等級：<color=yellow>{prestigeLevel}</color>/{maxPrestigeLevel}");
-            ctx.Reply($"熟練度與傳承成長率提升：<color=green>{gainPercentage}</color>");
-            ctx.Reply($"經驗獲取減少：<color=yellow>{reductionPercentage}</color>");
+            ctx.Reply($"<color=#90EE90>{parsedPrestigeType}</color> Prestige Info:");
+            ctx.Reply($"Current Prestige Level: <color=yellow>{prestigeLevel}</color>/{maxPrestigeLevel}");
+            ctx.Reply($"Growth rate increase for expertise and legacies: <color=green>{gainPercentage}</color>");
+            ctx.Reply($"Growth rate reduction for experience: <color=yellow>{reductionPercentage}</color>");
 
             if (prestigeData.TryGetValue(PrestigeType.Exo, out var exoData) && exoData > 0)
             {
-                ctx.Reply($"等級經驗衰減不再套用於 Exo 轉生。");
+                ctx.Reply($"Experience rate reduction for leveling no longer applies for exo prestiging.");
             }
         }
         else
@@ -430,11 +430,11 @@ internal static class PrestigeManager
 
             string totalEffectString = (combinedFactor >= 0 ? "+" : "-") + (combinedFactor * 100).ToString("F2") + "%";
 
-            LocalizationService.HandleReply(ctx, $"<color=#90EE90>{parsedPrestigeType}</color> 轉生資訊：");
-            LocalizationService.HandleReply(ctx, $"目前轉生等級：<color=yellow>{prestigeLevel}</color>/{maxPrestigeLevel}");
-            LocalizationService.HandleReply(ctx, $"來自 <color=#90EE90>{parsedPrestigeType}</color> 轉生等級的成長衰減：<color=yellow>-{percentageReductionString}</color>");
-            LocalizationService.HandleReply(ctx, $"屬性加成提升：<color=green>{statGainString}</color>");
-            LocalizationService.HandleReply(ctx, $"包含轉生加成後的總體成長變化：<color=yellow>{totalEffectString}</color>");
+            LocalizationService.HandleReply(ctx, $"<color=#90EE90>{parsedPrestigeType}</color> Prestige Info:");
+            LocalizationService.HandleReply(ctx, $"Current Prestige Level: <color=yellow>{prestigeLevel}</color>/{maxPrestigeLevel}");
+            LocalizationService.HandleReply(ctx, $"Growth rate reduction from <color=#90EE90>{parsedPrestigeType}</color> prestige level: <color=yellow>-{percentageReductionString}</color>");
+            LocalizationService.HandleReply(ctx, $"Stat bonuses improvement: <color=green>{statGainString}</color>");
+            LocalizationService.HandleReply(ctx, $"Total change in growth rate including leveling prestige bonus: <color=yellow>{totalEffectString}</color>");
         }
     }
     public static bool CanPrestige(ulong steamId, PrestigeType parsedPrestigeType, int xpKey)
@@ -491,7 +491,7 @@ internal static class PrestigeManager
             // if (buffEntity.Has<BlockFeedBuff>()) buffEntity.Remove<BlockFeedBuff>();
         }
 
-        LocalizationService.HandleReply(ctx, $"你已完成 <color=#90EE90>經驗</color>轉生 [<color=white>{prestigeLevel}</color>]！所有熟練度與傳承成長率提升 <color=green>{gainPercentage}</color>，擊殺單位獲得的經驗減少 <color=red>{reductionPercentage}</color>。");
+        LocalizationService.HandleReply(ctx, $"You have prestiged in <color=#90EE90>Experience</color>[<color=white>{prestigeLevel}</color>]! Growth rates for all expertise/legacies increased by <color=green>{gainPercentage}</color>, experience from unit kills reduced by <color=red>{reductionPercentage}</color>.");
     }
     static void HandleOtherPrestige(ChatCommandContext ctx, ulong steamId, PrestigeType parsedPrestigeType, int prestigeLevel)
     {
@@ -527,7 +527,7 @@ internal static class PrestigeManager
             }
         }
 
-        LocalizationService.HandleReply(ctx, $"<color=#90EE90>{parsedPrestigeType}</color> 轉生成功！當前等級：<color=white>{prestigeLevel}</color>，成長率降低 <color=red>{percentageReductionString}</color>，屬性加成提升 <color=green>{statGainString}</color>，總體成長效果變化：<color=yellow>{totalEffectString}</color>。");
+        LocalizationService.HandleReply(ctx, $"<color=#90EE90>{parsedPrestigeType}</color>[<color=white>{prestigeLevel}</color>] prestiged successfully! Growth rate reduced by <color=red>{percentageReductionString}</color> and stat bonuses improved by <color=green>{statGainString}</color>. The total change in growth rate with leveling prestige bonus is <color=yellow>{totalEffectString}</color>.");
     }
     public static void RemovePrestigeBuffs(Entity character)
     {
@@ -555,7 +555,7 @@ internal static class PrestigeManager
         float gainMultiplier = ConfigService.PrestigeRateMultiplier * level;
 
         string gainPercentage = (gainMultiplier * 100).ToString("F2") + "%";
-        LocalizationService.HandleServerReply(EntityManager, user, $"玩家 <color=green>{user.CharacterName.Value}</color> 已完成 <color=#90EE90>經驗</color>轉生 [<color=white>{level}</color>]！熟練度與傳承成長率提升 <color=green>{gainPercentage}</color>，經驗獲取減少 <color=red>{reductionPercentage}</color>。");
+        LocalizationService.HandleServerReply(EntityManager, user, $"Player <color=green>{user.CharacterName.Value}</color> has prestiged in <color=#90EE90>Experience</color>[<color=white>{level}</color>]! Growth rates for expertise/legacies increased by <color=green>{gainPercentage}</color>, experience from unit kills reduced by <color=red>{reductionPercentage}</color>.");
     }
     public static void ReplyOtherPrestigeEffects(User user, ulong playerId, PrestigeType parsedPrestigeType, int level)
     {
@@ -572,7 +572,7 @@ internal static class PrestigeManager
         string statGainString = (statGainIncrease * 100).ToString("F2") + "%";
 
         string totalEffectString = (combinedFactor * 100).ToString("F2") + "%";
-        LocalizationService.HandleServerReply(EntityManager, user, $"玩家 <color=green>{user.CharacterName.Value}</color> 已完成 <color=#90EE90>{parsedPrestigeType}</color> 轉生 [<color=white>{level}</color>]！成長率降低 <color=yellow>{percentageReductionString}</color>，屬性加成提升 <color=green>{statGainString}</color>，總體成長影響：<color=yellow>{totalEffectString}</color>。");
+        LocalizationService.HandleServerReply(EntityManager, user, $"Player <color=green>{user.CharacterName.Value}</color> has prestiged in <color=#90EE90>{parsedPrestigeType}</color>[<color=white>{level}</color>]! Growth rate reduced by <color=yellow>{percentageReductionString}</color> and stat bonuses improved by <color=green>{statGainString}</color>. The total change in growth rate with leveling prestige bonus is <color=yellow>{totalEffectString}</color>.");
     }
     public static bool TryParsePrestigeType(string prestigeType, out PrestigeType parsedPrestigeType)
     {
@@ -623,7 +623,7 @@ internal static class PrestigeManager
             RemovePrestigeBuffs(playerInfo.CharEntity);
         }
 
-        ctx.Reply("已從所有玩家身上移除轉生增益效果。");
+        ctx.Reply("Removed prestige buffs from all players.");
     }
     public static bool HasPrestiged(ulong steamId)
     {

@@ -166,7 +166,7 @@ internal class BattleService
             MatchPairs.Add(matchPair);
 
             var (position, timeRemaining) = GetQueuePositionAndTime(playerOne);
-            string message = $"Queued successfully! 排隊位置：<color=white>{position}</color>（<color=yellow>{Misc.FormatTimespan(timeRemaining)}</color>）";
+            string message = $"Queued successfully! Position in queue: <color=white>{position}</color> (<color=yellow>{Misc.FormatTimespan(timeRemaining)}</color>)";
             Core.Log.LogWarning($"{playerOne} & {playerTwo} | {message}");
 
             NotifyBothPlayers(playerOne, playerTwo, message);

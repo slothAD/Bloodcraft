@@ -29,7 +29,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血之傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
@@ -43,7 +43,7 @@ internal static class BloodCommands
         }
         else if (!Enum.TryParse(blood, true, out bloodType))
         {
-            LocalizationService.HandleReply(ctx, "無效的血型，請使用 '.bl l' 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid blood, use '.bl l' to see options.");
             return;
         }
 
@@ -52,7 +52,7 @@ internal static class BloodCommands
 
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的血之傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
@@ -63,7 +63,7 @@ internal static class BloodCommands
 
         if (data.Key > 0)
         {
-            LocalizationService.HandleReply(ctx, $"你在 <color=red>{handler.GetBloodType()}</color> 的等級為 [<color=white>{data.Key}</color>][<color=#90EE90>{prestigeLevel}</color>]，擁有 <color=yellow>{progress}</color> 點 <color=#FFC0CB>精華</color>（進度：<color=white>{BloodSystem.GetLevelProgress(steamId, handler)}%</color>）！");
+            LocalizationService.HandleReply(ctx, $"You're level [<color=white>{data.Key}</color>][<color=#90EE90>{prestigeLevel}</color>] with <color=yellow>{progress}</color> <color=#FFC0CB>essence</color> (<color=white>{BloodSystem.GetLevelProgress(steamId, handler)}%</color>) in <color=red>{handler.GetBloodType()}</color>!");
 
             if (steamId.TryGetPlayerBloodStats(out var bloodTypeStats) && bloodTypeStats.TryGetValue(bloodType, out var bloodStatTypes))
             {
@@ -82,17 +82,17 @@ internal static class BloodCommands
                 {
                     var batch = bloodLegacyStats.Skip(i).Take(6);
                     string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{stat.Key}</color>: <color=white>{stat.Value}</color>"));
-                    LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> 屬性：{bonuses}");
+                    LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> Stats: {bonuses}");
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> 尚未選擇屬性，請使用 <color=white>.bl lst</color> 查看可用選項。");
+                LocalizationService.HandleReply(ctx, $"No stats selected for <color=red>{bloodType}</color>, use <color=white>'.bl lst'</color> to see valid options.");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"你在 <color=red>{handler.GetBloodType()}</color> 尚未有任何進度。");
+            LocalizationService.HandleReply(ctx, $"No progress in <color=red>{handler.GetBloodType()}</color> yet.");
         }
     }
 
@@ -101,14 +101,14 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血之傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
         var steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, BLOOD_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"血之傳承紀錄 {(GetPlayerBool(steamId, BLOOD_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"Blood Legacy logging {(GetPlayerBool(steamId, BLOOD_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
     }
 
     [Command(name: "choosestat", shortHand: "cst", adminOnly: false, usage: ".bl cst [BloodOrStat] [BloodStat]", description: "Choose a bonus stat to enhance for your blood legacy.")]
@@ -116,7 +116,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -134,7 +134,7 @@ internal static class BloodCommands
             if (!Enum.IsDefined(typeof(BloodStatType), numericStat))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的血之屬性，請使用 <color=white>.bl lst</color> 查看有效選項。");
+                    "Invalid blood stat, use '<color=white>.bl lst</color>' to see valid options.");
                 return;
             }
 
@@ -146,7 +146,7 @@ internal static class BloodCommands
             {
                 Buffs.RefreshStats(playerCharacter);
                 LocalizationService.HandleReply(ctx,
-                    $"你已為 <color=red>{finalBloodType}</color> 選擇了 <color=#00FFFF>{finalBloodStat}</color>！");
+                    $"<color=#00FFFF>{finalBloodStat}</color> selected for <color=red>{finalBloodType}</color>!");
             }
         }
         else
@@ -154,21 +154,21 @@ internal static class BloodCommands
             if (!Enum.TryParse(bloodOrStat, true, out finalBloodType))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的血型，請使用 <color=white>.bl l</color> 查看有效選項。");
+                    "Invalid blood type, use '<color=white>.bl l</color>' to see valid options.");
                 return;
             }
 
             if (finalBloodType == BloodType.GateBoss || finalBloodType == BloodType.None || finalBloodType == BloodType.VBlood)
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的血之傳承，請使用 <color=white>.bl l</color> 查看有效選項。");
+                    "Invalid blood legacy, use '<color=white>.bl l</color>' to see valid options.");
                 return;
             }
 
             if (statType <= 0)
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的血之屬性，請使用 <color=white>.bl lst</color> 查看有效選項。");
+                    "Invalid blood stat, use '<color=white>.bl lst</color>' to see valid options.");
                 return;
             }
 
@@ -177,7 +177,7 @@ internal static class BloodCommands
             if (!Enum.IsDefined(typeof(BloodStatType), typedStat))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的血之屬性，請使用 <color=white>.bl lst</color> 查看有效選項。");
+                    "Invalid blood stat, use '<color=white>.bl lst</color>' to see valid options.");
                 return;
             }
 
@@ -187,7 +187,7 @@ internal static class BloodCommands
             {
                 Buffs.RefreshStats(playerCharacter);
                 LocalizationService.HandleReply(ctx,
-                    $"你已為 <color=red>{finalBloodType}</color> 選擇了 <color=#00FFFF>{finalBloodStat}</color>！");
+                    $"<color=#00FFFF>{finalBloodStat}</color> selected for <color=red>{finalBloodType}</color>!");
             }
         }
     }
@@ -197,7 +197,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -210,7 +210,7 @@ internal static class BloodCommands
 
         if (bloodType.Equals(BloodType.GateBoss) || bloodType.Equals(BloodType.None) || bloodType.Equals(BloodType.VBlood))
         {
-            LocalizationService.HandleReply(ctx, $"<color=white>{bloodType}</color> 沒有可用的傳承。");
+            LocalizationService.HandleReply(ctx, $"No legacy available for <color=white>{bloodType}</color>.");
             return;
         }
 
@@ -226,12 +226,12 @@ internal static class BloodCommands
                     ResetStats(steamId, bloodType);
                     Buffs.RefreshStats(playerCharacter);
 
-                    LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> 的血之屬性已重置！");
+                    LocalizationService.HandleReply(ctx, $"Your blood stats have been reset for <color=red>{bloodType}</color>!");
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"你缺少重置血之屬性的必要物品（<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>）");
+                LocalizationService.HandleReply(ctx, $"You do not have the required item to reset your blood stats (<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>)");
             }
         }
         else
@@ -239,7 +239,7 @@ internal static class BloodCommands
             ResetStats(steamId, bloodType);
             Buffs.RefreshStats(playerCharacter);
 
-            LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> 的血之屬性已重置。");
+            LocalizationService.HandleReply(ctx, $"Your blood stats have been reset for <color=red>{bloodType}</color>.");
         }
     }
 
@@ -248,7 +248,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -260,7 +260,7 @@ internal static class BloodCommands
 
         if (bloodStatsWithCaps.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, "目前沒有可用的血之屬性。");
+            LocalizationService.HandleReply(ctx, "No blood stats available at this time.");
         }
         else
         {
@@ -278,34 +278,34 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血之傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到指定玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
         User foundUser = playerInfo.User;
         if (level < 0 || level > ConfigService.MaxBloodLevel)
         {
-            LocalizationService.HandleReply(ctx, $"等級必須介於 0 到 {ConfigService.MaxBloodLevel} 之間。");
+            LocalizationService.HandleReply(ctx, $"Level must be between 0 and {ConfigService.MaxBloodLevel}.");
             return;
         }
 
         if (!Enum.TryParse<BloodType>(blood, true, out var bloodType))
         {
-            LocalizationService.HandleReply(ctx, "無效的血之傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
         var BloodHandler = BloodLegacyFactory.GetBloodHandler(bloodType);
         if (BloodHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的血之傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
@@ -314,7 +314,7 @@ internal static class BloodCommands
         BloodHandler.SetLegacyData(steamId, xpData);
 
         Buffs.RefreshStats(playerInfo.CharEntity);
-        LocalizationService.HandleReply(ctx, $"<color=red>{BloodHandler.GetBloodType()}</color> 的傳承已設為等級 [<color=white>{level}</color>]，目標玩家：<color=green>{foundUser.CharacterName}</color>");
+        LocalizationService.HandleReply(ctx, $"<color=red>{BloodHandler.GetBloodType()}</color> legacy set to [<color=white>{level}</color>] for <color=green>{foundUser.CharacterName}</color>");
     }
 
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".bl l", description: "Lists blood legacies available.")]
@@ -322,7 +322,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血之傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
@@ -333,6 +333,6 @@ internal static class BloodCommands
                               .Select(b => b.ToString());
 
         string bloodTypesList = string.Join(", ", bloodTypes);
-        LocalizationService.HandleReply(ctx, $"可用的血之傳承：<color=red>{bloodTypesList}</color>");
+        LocalizationService.HandleReply(ctx, $"Available Blood Legacies: <color=red>{bloodTypesList}</color>");
     }
 }

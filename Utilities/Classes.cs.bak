@@ -344,13 +344,13 @@ internal static class Classes
         if (!InventoryUtilities.TryGetInventoryEntity(EntityManager, ctx.User.LocalCharacter._Entity, out var inventoryEntity) ||
             ServerGameManager.GetInventoryItemCount(inventoryEntity, item) < quantity)
         {
-            LocalizationService.HandleReply(ctx, $"你沒有足夠的道具來更換職業（<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>）");
+            LocalizationService.HandleReply(ctx, $"You do not have enough of the required item to change classes (<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>)");
             return false;
         }
 
         if (!ServerGameManager.TryRemoveInventoryItem(inventoryEntity, item, quantity))
         {
-            LocalizationService.HandleReply(ctx, $"無法移除足夠的職業轉換道具（<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>）");
+            LocalizationService.HandleReply(ctx, $"Failed to remove enough of the item required (<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>)");
             return false;
         }
 
@@ -396,7 +396,7 @@ internal static class Classes
 
         if (passiveBuffs.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 被動技能未找到！");
+            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} passives not found!");
             return;
         }
 
@@ -418,7 +418,7 @@ internal static class Classes
             return $"<color=yellow>{index + 1}</color>| {(prefabEntity.Has<ModifyUnitStatBuff_DOTS>() ? FormatModifyUnitStatBuffer(prefabEntity) : prefabName)} at level <color=green>{level}</color>";
         }).ToList();
 
-        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 被動技能：");
+        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} passives:");
 
         for (int i = 0; i < classBuffs.Count; i += 3) // Using batches of 4 for better readability
         {
@@ -435,7 +435,7 @@ internal static class Classes
 
         if (!hasWeaponStats && !hasBloodStats)
         {
-            LocalizationService.HandleReply(ctx, $"找不到 {FormatClassName(playerClass)} 的屬性協同效果……");
+            LocalizationService.HandleReply(ctx, $"Couldn't find stat synergies for {FormatClassName(playerClass)}...");
             return;
         }
 
@@ -453,11 +453,11 @@ internal static class Classes
 
         if (allStats.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, $"未發現 {FormatClassName(playerClass)} 的任何屬性協同效果。");
+            LocalizationService.HandleReply(ctx, $"No stat synergies found for {FormatClassName(playerClass)}.");
             return;
         }
 
-        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 屬性協同 [x<color=white>{ConfigService.SynergyMultiplier}</color>]：");
+        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} stat synergies [x<color=white>{ConfigService.SynergyMultiplier}</color>]:");
 
         for (int i = 0; i < allStats.Count; i += 6)
         {
@@ -477,7 +477,7 @@ internal static class Classes
 
             if (weaponStats.Count == 0 && bloodStats.Count == 0)
             {
-                LocalizationService.HandleReply(ctx, $"未發現 {FormatClassName(playerClass)} 的任何屬性協同效果。");
+                LocalizationService.HandleReply(ctx, $"No stat synergies found for {FormatClassName(playerClass)}.");
                 return;
             }
 
@@ -485,7 +485,7 @@ internal static class Classes
             allStats.AddRange(weaponStats.Select(stat => $"<color=white>{stat}</color> (<color=#00FFFF>Weapon</color>)"));
             allStats.AddRange(bloodStats.Select(stat => $"<color=white>{stat}</color> (<color=red>Blood</color>)"));
 
-            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 屬性協同 [x<color=white>{ConfigService.SynergyMultiplier}</color>]：");
+            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} stat synergies[x<color=white>{ConfigService.SynergyMultiplier}</color>]:");
 
             for (int i = 0; i < allStats.Count; i += 6)
             {
@@ -496,7 +496,7 @@ internal static class Classes
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"找不到 {FormatClassName(playerClass)} 的屬性協同效果……");
+            LocalizationService.HandleReply(ctx, $"Couldn't find stat synergies for {FormatClassName(playerClass)}...");
         }
     }
     */
@@ -506,7 +506,7 @@ internal static class Classes
 
         if (spells.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 尚未設定任何技能……");
+            LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} has no spells configured...");
             return;
         }
 
@@ -526,7 +526,7 @@ internal static class Classes
             classSpells.Insert(0, $"<color=yellow>{0}</color>| <color=white>{spellName}</color>");
         }
 
-        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} 技能：");
+        LocalizationService.HandleReply(ctx, $"{FormatClassName(playerClass)} spells:");
 
         for (int i = 0; i < classSpells.Count; i += 4)
         {
@@ -651,7 +651,7 @@ internal static class Classes
 
                 if (spellPrefabGUID.Equals(oldAbility))
                 {
-                    LocalizationService.HandleReply(ctx, $"位移技能：<color=#CBC3E3>{spellName}</color>");
+                    LocalizationService.HandleReply(ctx, $"Shift spell: <color=#CBC3E3>{spellName}</color>");
                     return;
                 }
                 for (int i = 0; i < firstBuffer.Length; i++)
@@ -716,7 +716,7 @@ internal static class Classes
                 JewelEquipUtilitiesServer.TryEquipJewel(ref _entityManagerRef, ref _prefabLookupMap, character, slot);
             }
 
-            LocalizationService.HandleReply(ctx, $"位移技能：<color=#CBC3E3>{spellName}</color>");
+            LocalizationService.HandleReply(ctx, $"Shift spell: <color=#CBC3E3>{spellName}</color>");
         }
         else if (spellPrefabGUID.HasValue())
         {
@@ -735,7 +735,7 @@ internal static class Classes
 
                 if (spellPrefabGUID.Equals(oldAbility))
                 {
-                    LocalizationService.HandleReply(ctx, $"位移技能：<color=#CBC3E3>{spellName}</color>");
+                    LocalizationService.HandleReply(ctx, $"Shift spell: <color=#CBC3E3>{spellName}</color>");
                     return;
                 }
                 for (int i = 0; i < firstBuffer.Length; i++)
@@ -780,12 +780,12 @@ internal static class Classes
                     JewelEquipUtilitiesServer.TryEquipJewel(ref _entityManagerRef, ref _prefabLookupMap, character, slot);
                 }
 
-                LocalizationService.HandleReply(ctx, $"位移技能：<color=#CBC3E3>{spellName}</color>");
+                LocalizationService.HandleReply(ctx, $"Shift spell: <color=#CBC3E3>{spellName}</color>");
             }
             else
             {
                 HandleNPCSpell(character, spellPrefabGUID);
-                LocalizationService.HandleReply(ctx, $"位移技能：<color=#CBC3E3>{spellName}</color>");
+                LocalizationService.HandleReply(ctx, $"Shift spell: <color=#CBC3E3>{spellName}</color>");
             }
         }
     }
@@ -884,14 +884,14 @@ internal static class Classes
             if (!Enum.IsDefined(typeof(PlayerClass), value))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的職業，請使用 <color=white>.class l</color> 查看可用選項。");
+                    "Invalid class, use '<color=white>.class l</color>' to see options.");
                 return null;
             }
 
             /*
             if (value < 1 || value > 6)
             {
-                LocalizationService.HandleReply(ctx, "無效的職業，請使用 <color=white>.class l</color> 查看可選職業。");
+                LocalizationService.HandleReply(ctx, "Invalid class, use <color=white>'.class l'</color> to see options.");
                 return null;
             }
             */
@@ -903,7 +903,7 @@ internal static class Classes
         {
             if (!TryParseClassName(input, out PlayerClass playerClass))
             {
-                LocalizationService.HandleReply(ctx, "無效的職業，請使用 <color=white>.class l</color> 查看可選職業。");
+                LocalizationService.HandleReply(ctx, "Invalid class, use <color=white>'.class l'</color> to see options.");
                 return null;
             }
 
@@ -1058,7 +1058,7 @@ internal static class Classes
             ApplyClassBuffs(playerInfo.CharEntity, steamId);
         }
 
-        ctx.Reply("已移除所有玩家的職業增益並重新套用當前職業效果。");
+        ctx.Reply("Removed all class buffs then applied current class buffs for all players.");
     }
     public static void GlobalPurgeClassBuffs(ChatCommandContext ctx)
     {
@@ -1072,7 +1072,7 @@ internal static class Classes
             RemoveAllClassBuffs(playerInfo.CharEntity);
         }
 
-        ctx.Reply("已移除所有玩家的職業增益效果。");
+        ctx.Reply("Removed all class buffs for all players.");
     }
     public static string FormatModifyUnitStatBuffer(Entity buffEntity)
     {

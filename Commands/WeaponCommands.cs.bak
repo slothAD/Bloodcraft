@@ -34,7 +34,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -44,7 +44,7 @@ internal static class WeaponCommands
         IWeaponExpertise handler = WeaponExpertiseFactory.GetExpertise(weaponType);
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練度控制器為空，這不應該發生，請聯絡開發者。");
+            LocalizationService.HandleReply(ctx, "Expertise handler for weapon is null; this shouldn't happen and you may want to inform the developer.");
             return;
         }
 
@@ -56,7 +56,7 @@ internal static class WeaponCommands
 
         if (ExpertiseData.Key > 0 || ExpertiseData.Value > 0)
         {
-            LocalizationService.HandleReply(ctx, $"你的 <color=#c0c0c0>{weaponType}</color> 武器熟練度為 [<color=white>{ExpertiseData.Key}</color>][<color=#90EE90>{prestigeLevel}</color>]，目前擁有 <color=yellow>{progress}</color> 點 <color=#FFC0CB>熟練值</color>（<color=white>{GetLevelProgress(steamId, handler)}%</color>）！");
+            LocalizationService.HandleReply(ctx, $"Your weapon expertise is [<color=white>{ExpertiseData.Key}</color>][<color=#90EE90>{prestigeLevel}</color>] and you have <color=yellow>{progress}</color> <color=#FFC0CB>expertise</color> (<color=white>{GetLevelProgress(steamId, handler)}%</color>) with <color=#c0c0c0>{weaponType}</color>!");
 
             if (steamId.TryGetPlayerWeaponStats(out var weaponTypeStats) && weaponTypeStats.TryGetValue(weaponType, out var weaponStatTypes))
             {
@@ -74,17 +74,17 @@ internal static class WeaponCommands
                 {
                     var batch = weaponExpertiseStats.Skip(i).Take(6);
                     string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{stat.Key}</color>: <color=white>{stat.Value}</color>"));
-                    LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{weaponType}</color> 屬性：{bonuses}");
+                    LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{weaponType}</color> Stats: {bonuses}");
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "目前裝備的武器沒有任何加成。");
+                LocalizationService.HandleReply(ctx, "No bonuses from currently equipped weapon.");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"你尚未獲得 <color=#c0c0c0>{weaponType}</color> 的任何熟練值！");
+            LocalizationService.HandleReply(ctx, $"You haven't gained any expertise for <color=#c0c0c0>{weaponType}</color> yet!");
         }
     }
 
@@ -93,14 +93,14 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
         var steamId = ctx.Event.User.PlatformId;
         TogglePlayerBool(steamId, WEAPON_LOG_KEY);
 
-        LocalizationService.HandleReply(ctx, $"武器熟練度紀錄功能現在 {(GetPlayerBool(steamId, WEAPON_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"Expertise logging is now {(GetPlayerBool(steamId, WEAPON_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
     }
 
     [Command(name: "choosestat", shortHand: "cst", adminOnly: false, usage: ".wep cst [WeaponOrStat] [WeaponStat]", description: "Choose a weapon stat to enhance based on your expertise.")]
@@ -108,7 +108,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -125,7 +125,7 @@ internal static class WeaponCommands
             if (!Enum.IsDefined(typeof(WeaponStats.WeaponStatType), numericStat))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的屬性，請使用 <color=white>.wep lst</color> 查看可選項目。");
+                    "Invalid stat, use '<color=white>.wep lst</color>' to see valid options.");
                 return;
             }
 
@@ -136,7 +136,7 @@ internal static class WeaponCommands
             {
                 Buffs.RefreshStats(playerCharacter);
                 LocalizationService.HandleReply(ctx,
-                    $"你已為 <color=#c0c0c0>{finalWeaponType}</color> 選擇了 <color=#00FFFF>{finalWeaponStat}</color>！");
+                    $"<color=#00FFFF>{finalWeaponStat}</color> has been chosen for <color=#c0c0c0>{finalWeaponType}</color>!");
             }
         }
         else
@@ -144,14 +144,14 @@ internal static class WeaponCommands
             if (!Enum.TryParse(weaponOrStat, true, out finalWeaponType))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的武器選擇，請使用 <color=white>.wep lst</color> 查看可選項目。");
+                    "Invalid weapon choice, use '<color=white>.wep lst</color>' to see valid options.");
                 return;
             }
 
             if (statType <= 0)
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的屬性，請使用 <color=white>.wep lst</color> 查看可選項目。");
+                    "Invalid stat, use '<color=white>.wep lst</color>' to see valid options.");
                 return;
             }
 
@@ -160,7 +160,7 @@ internal static class WeaponCommands
             if (!Enum.IsDefined(typeof(WeaponStats.WeaponStatType), typedStat))
             {
                 LocalizationService.HandleReply(ctx,
-                    "無效的屬性，請使用 <color=white>.wep lst</color> 查看可選項目。");
+                    "Invalid stat, use '<color=white>.wep lst</color>' to see valid options.");
                 return;
             }
 
@@ -170,7 +170,7 @@ internal static class WeaponCommands
             {
                 Buffs.RefreshStats(playerCharacter);
                 LocalizationService.HandleReply(ctx,
-                    $"你已為 <color=#c0c0c0>{finalWeaponType}</color> 選擇了 <color=#00FFFF>{finalWeaponStat}</color>！");
+                    $"<color=#00FFFF>{finalWeaponStat}</color> has been chosen for <color=#c0c0c0>{finalWeaponType}</color>!");
             }
         }
     }
@@ -180,7 +180,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -201,13 +201,13 @@ internal static class WeaponCommands
                     ResetStats(steamId, weaponType);
                     Buffs.RefreshStats(playerCharacter);
 
-                    LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{weaponType}</color> 的武器屬性已重置！");
+                    LocalizationService.HandleReply(ctx, $"Your weapon stats have been reset for <color=#c0c0c0>{weaponType}</color>!");
                     return;
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"你缺少重置武器屬性的必要物品！（<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>）");
+                LocalizationService.HandleReply(ctx, $"You don't have the required item to reset your weapon stats! (<color=#ffd9eb>{item.GetLocalizedName()}</color>x<color=white>{quantity}</color>)");
                 return;
             }
 
@@ -216,7 +216,7 @@ internal static class WeaponCommands
         ResetStats(steamId, weaponType);
         Buffs.RefreshStats(playerCharacter);
 
-        LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{weaponType}</color> 的武器屬性已重置！");
+        LocalizationService.HandleReply(ctx, $"Your weapon stats have been reset for <color=#c0c0c0>{weaponType}</color>!");
     }
 
     [Command(name: "set", adminOnly: true, usage: ".wep set [Name] [Weapon] [Level]", description: "Sets player weapon expertise level.")]
@@ -224,34 +224,34 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到指定玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
         if (level < 0 || level > ConfigService.MaxExpertiseLevel)
         {
-            string message = $"等級必須介於 0 到 {ConfigService.MaxExpertiseLevel} 之間。";
+            string message = $"Level must be between 0 and {ConfigService.MaxExpertiseLevel}.";
             LocalizationService.HandleReply(ctx, message);
             return;
         }
 
         if (!Enum.TryParse<WeaponType>(weapon, true, out var weaponType))
         {
-            LocalizationService.HandleReply(ctx, $"等級必須介於 0 到 {ConfigService.MaxExpertiseLevel} 之間。");
+            LocalizationService.HandleReply(ctx, $"Level must be between 0 and {ConfigService.MaxExpertiseLevel}.");
             return;
         }
 
         IWeaponExpertise expertiseHandler = WeaponExpertiseFactory.GetExpertise(weaponType);
         if (expertiseHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的武器類型。");
+            LocalizationService.HandleReply(ctx, "Invalid weapon type.");
             return;
         }
 
@@ -263,11 +263,11 @@ internal static class WeaponCommands
             setFunc(steamId, xpData);
             Buffs.RefreshStats(playerInfo.CharEntity);
 
-            LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{expertiseHandler.GetWeaponType()}</color> 熟練度已設為等級 <color=white>{level}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>");
+            LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{expertiseHandler.GetWeaponType()}</color> expertise set to [<color=white>{level}</color>] for <color=green>{playerInfo.User.CharacterName.Value}</color>");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到對應的武器類型儲存方式……");
+            LocalizationService.HandleReply(ctx, "Couldn't find matching save method for weapon type...");
         }
     }
 
@@ -276,7 +276,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -288,7 +288,7 @@ internal static class WeaponCommands
 
         if (weaponStatsWithCaps.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, "目前沒有可用的武器屬性。");
+            LocalizationService.HandleReply(ctx, "No weapon stats available at this time.");
         }
         else
         {
@@ -307,12 +307,12 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "武器熟練系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
         string weaponTypes = string.Join(", ", Enum.GetNames(typeof(WeaponType)));
-        LocalizationService.HandleReply(ctx, $"可用武器熟練類型：<color=#c0c0c0>{weaponTypes}</color>");
+        LocalizationService.HandleReply(ctx, $"Available Weapon Expertises: <color=#c0c0c0>{weaponTypes}</color>");
     }
 
     [Command(name: "setspells", shortHand: "spell", adminOnly: true, usage: ".wep spell [Name] [Slot] [PrefabGuid] [Radius]", description: "Manually sets spells for testing (if you enter a radius it will apply to players around the entered name).")]
@@ -320,13 +320,13 @@ internal static class WeaponCommands
     {
         if (!ConfigService.UnarmedSlots)
         {
-            LocalizationService.HandleReply(ctx, "額外技能欄位尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Extra spell slots are not enabled.");
             return;
         }
 
         if (slot < 1 || slot > 7)
         {
-            LocalizationService.HandleReply(ctx, "無效欄位（<color=white>1</color> 代表 Q，<color=white>2</color> 代表 E）");
+            LocalizationService.HandleReply(ctx, "Invalid slot (<color=white>1</color> for Q or <color=white>2</color> for E)");
             return;
         }
 
@@ -349,12 +349,12 @@ internal static class WeaponCommands
                         if (slot == 1)
                         {
                             spells.FirstUnarmed = ability;
-                            LocalizationService.HandleReply(ctx, $"第一個徒手技能欄位已設為 <color=white>{new PrefabGUID(ability).GetPrefabName()}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>。");
+                            LocalizationService.HandleReply(ctx, $"First unarmed slot set to <color=white>{new PrefabGUID(ability).GetPrefabName()}</color> for <color=green>{playerInfo.User.CharacterName.Value}</color>.");
                         }
                         else if (slot == 2)
                         {
                             spells.SecondUnarmed = ability;
-                            LocalizationService.HandleReply(ctx, $"第二個徒手技能欄位已設為 <color=white>{new PrefabGUID(ability).GetPrefabName()}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>。");
+                            LocalizationService.HandleReply(ctx, $"Second unarmed slot set to <color=white>{new PrefabGUID(ability).GetPrefabName()}</color> for <color=green>{playerInfo.User.CharacterName.Value}</color>.");
                         }
 
                         steamId.SetPlayerSpells(spells);
@@ -366,7 +366,7 @@ internal static class WeaponCommands
         }
         else if (radius < 0f)
         {
-            LocalizationService.HandleReply(ctx, "範圍必須為正數！");
+            LocalizationService.HandleReply(ctx, "Radius must be positive!");
             return;
         }
         else
@@ -374,7 +374,7 @@ internal static class WeaponCommands
             PlayerInfo playerInfo = GetPlayerInfo(name);
             if (!playerInfo.UserEntity.Exists())
             {
-                ctx.Reply($"找不到指定玩家。");
+                ctx.Reply($"Couldn't find player.");
                 return;
             }
 
@@ -385,12 +385,12 @@ internal static class WeaponCommands
                 if (slot == 1)
                 {
                     spells.FirstUnarmed = ability;
-                    LocalizationService.HandleReply(ctx, $"第一個徒手技能欄位已設為 <color=white>{new PrefabGUID(ability).GetPrefabName()}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>。");
+                    LocalizationService.HandleReply(ctx, $"First unarmed slot set to <color=white>{new PrefabGUID(ability).GetPrefabName()}</color> for <color=green>{playerInfo.User.CharacterName.Value}</color>.");
                 }
                 else if (slot == 2)
                 {
                     spells.SecondUnarmed = ability;
-                    LocalizationService.HandleReply(ctx, $"第二個徒手技能欄位已設為 <color=white>{new PrefabGUID(ability).GetPrefabName()}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>。");
+                    LocalizationService.HandleReply(ctx, $"Second unarmed slot set to <color=white>{new PrefabGUID(ability).GetPrefabName()}</color> for <color=green>{playerInfo.User.CharacterName.Value}</color>.");
                 }
 
                 steamId.SetPlayerSpells(spells);
@@ -403,7 +403,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.UnarmedSlots)
         {
-            LocalizationService.HandleReply(ctx, "徒手額外技能欄位尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Extra spell slots for unarmed are not enabled.");
             return;
         }
 
@@ -413,7 +413,7 @@ internal static class WeaponCommands
 
         if (playerCharacter.HasBuff(_exoFormBuff))
         {
-            LocalizationService.HandleReply(ctx, "使用 Exo 型態時無法鎖定技能。");
+            LocalizationService.HandleReply(ctx, "Spells cannot be locked when using exoform.");
             return;
         }
 
@@ -421,11 +421,11 @@ internal static class WeaponCommands
 
         if (GetPlayerBool(SteamID, SPELL_LOCK_KEY))
         {
-            LocalizationService.HandleReply(ctx, "請先更換欲設為徒手技能欄位的技能，完成後再次切換此選項。");
+            LocalizationService.HandleReply(ctx, "Change spells to the ones you want in your unarmed slots. When done, toggle this again.");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "技能已鎖定。");
+            LocalizationService.HandleReply(ctx, "Spells locked.");
         }
     }
 }

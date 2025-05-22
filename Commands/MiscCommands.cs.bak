@@ -31,7 +31,7 @@ internal static class MiscCommands
         ulong steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, REMINDERS_KEY);
-        LocalizationService.HandleReply(ctx, $"提醒功能 {(GetPlayerBool(steamId, REMINDERS_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"Reminders {(GetPlayerBool(steamId, REMINDERS_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
     }
 
     [Command(name: "sct", adminOnly: false, usage: ".misc sct [Type]", description: "Toggles various scrolling text elements.")]
@@ -58,14 +58,14 @@ internal static class MiscCommands
 
             if (!ScrollingTextBoolKeyMap.TryGetValue(sctType, out var boolKey))
             {
-                LocalizationService.HandleReply(ctx, "無法從滾動文字類型取得布林鍵名……");
+                LocalizationService.HandleReply(ctx, "Couldn't find bool key from scrolling text type...");
                 return;
             }
 
             TogglePlayerBool(steamId, boolKey);
             bool currentState = GetPlayerBool(steamId, boolKey);
 
-            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> 滾動訊息 {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> scrolling text {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
         }
         else
         {
@@ -77,14 +77,14 @@ internal static class MiscCommands
 
             if (!ScrollingTextBoolKeyMap.TryGetValue(sctType, out var boolKey))
             {
-                LocalizationService.HandleReply(ctx, "無法從滾動文字類型取得布林鍵名……");
+                LocalizationService.HandleReply(ctx, "Couldn't find bool key from scrolling text type...");
                 return;
             }
 
             TogglePlayerBool(steamId, boolKey);
             bool currentState = GetPlayerBool(steamId, boolKey);
 
-            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> 滾動訊息 {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> scrolling text {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
         }
     }
 
@@ -93,7 +93,7 @@ internal static class MiscCommands
     {
         if (!ConfigService.StarterKit)
         {
-            LocalizationService.HandleReply(ctx, "起始套裝功能尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Starter kit is not enabled.");
             return;
         }
 
@@ -111,7 +111,7 @@ internal static class MiscCommands
 
             List<string> kitItems = StarterKitItemPrefabGUIDs.Select(x => $"<color=white>{x.Key.GetLocalizedName()}</color>").ToList();
 
-            LocalizationService.HandleReply(ctx, $"你已獲得起始套裝：");
+            LocalizationService.HandleReply(ctx, $"You've received a starting kit with:");
 
             const int maxPerMessage = 6;
             for (int i = 0; i < kitItems.Count; i += maxPerMessage)
@@ -124,7 +124,7 @@ internal static class MiscCommands
         }
         else
         {
-            ctx.Reply("你已經領取過起始套裝！");
+            ctx.Reply("You've already used your starting kit!");
         }
     }
 
@@ -133,7 +133,7 @@ internal static class MiscCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
@@ -145,7 +145,7 @@ internal static class MiscCommands
         Entity achievementOwnerEntity = userEntity.Read<AchievementOwner>().Entity._Entity;
 
         ClaimAchievementSystem.CompleteAchievement(entityCommandBuffer, achievementPrefabGUID, userEntity, characterEntity, achievementOwnerEntity, false, true);
-        LocalizationService.HandleReply(ctx, "你已經整裝待發，準備狩獵！");
+        LocalizationService.HandleReply(ctx, "You are now prepared for the hunt!");
     }
 
     [Command(name: "userstats", adminOnly: false, usage: ".misc userstats", description: "Shows neat information about the player.")]
@@ -167,7 +167,7 @@ internal static class MiscCommands
         float LitresBloodConsumed = userStats.LitresBloodConsumed;
         LitresBloodConsumed = (int)LitresBloodConsumed;
 
-        LocalizationService.HandleReply(ctx, $"<color=white>擊殺V型血</color>：<color=#FF5733>{VBloodKills}</color> | <color=white>擊殺單位</color>：<color=#FFD700>{UnitKills}</color> | <color=white>死亡次數</color>：<color=#808080>{Deaths}</color> | <color=white>上線時間</color>：<color=#1E90FF>{OnlineTime}</color> 小時 | <color=white>移動距離</color>：<color=#32CD32>{DistanceTraveled}</color> 公里 | <color=white>吸血量</color>：<color=red>{LitresBloodConsumed}</color> 升");
+        LocalizationService.HandleReply(ctx, $"<color=white>VBloods Slain</color>: <color=#FF5733>{VBloodKills}</color> | <color=white>Units Killed</color>: <color=#FFD700>{UnitKills}</color> | <color=white>Deaths</color>: <color=#808080>{Deaths}</color> | <color=white>Time Online</color>: <color=#1E90FF>{OnlineTime}</color>hr | <color=white>Distance Traveled</color>: <color=#32CD32>{DistanceTraveled}</color>kf | <color=white>Blood Consumed</color>: <color=red>{LitresBloodConsumed}</color>L");
     }
 
     [Command(name: "silence", adminOnly: false, usage: ".misc silence", description: "Resets stuck combat music if needed.")]
@@ -177,7 +177,7 @@ internal static class MiscCommands
 
         if (ServerGameManager.HasBuff(character, _combatBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "此指令僅限必要時使用，絕對不可在戰鬥中執行。");
+            LocalizationService.HandleReply(ctx, "This command should only be used as required and certainly not while in combat.");
             return;
         }
 
@@ -186,6 +186,6 @@ internal static class MiscCommands
         character.Write(combatMusicListener_Shared);
 
         CombatMusicSystemServer.OnUpdate();
-        ctx.Reply($"戰鬥音樂已清除！");
+        ctx.Reply($"Combat music cleared!");
     }
 }

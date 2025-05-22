@@ -18,14 +18,14 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
         ulong steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, PROFESSION_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"職業紀錄功能現在 {(GetPlayerBool(steamId, PROFESSION_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"Profession logging is now {(GetPlayerBool(steamId, PROFESSION_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
     }
 
     [Command(name: "get", adminOnly: false, usage: ".prof get [Profession]", description: "Display your current profession progress.")]
@@ -33,13 +33,13 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
         if (!Enum.TryParse(profession, true, out ProfessionType professionType))
         {
-            LocalizationService.HandleReply(ctx, $"可用職業：{ProfessionFactory.GetProfessionNames()}");
+            LocalizationService.HandleReply(ctx, $"Valid professions: {ProfessionFactory.GetProfessionNames()}");
             return;
         }
 
@@ -48,7 +48,7 @@ internal static class ProfessionCommands
         IProfession professionHandler = ProfessionFactory.GetProfession(professionType);
         if (professionHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的職業。");
+            LocalizationService.HandleReply(ctx, "Invalid profession.");
             return;
         }
 
@@ -56,11 +56,11 @@ internal static class ProfessionCommands
         if (data.Key > 0)
         {
             int progress = (int)(data.Value - ConvertLevelToXp(data.Key));
-            LocalizationService.HandleReply(ctx, $"你在 {professionHandler.GetProfessionName()} 的等級為 [<color=white>{data.Key}</color>]，擁有 <color=yellow>{progress}</color> 點 <color=#FFC0CB>熟練度</color>（<color=white>{ProfessionSystem.GetLevelProgress(steamId, professionHandler)}%</color>）！");
+            LocalizationService.HandleReply(ctx, $"You're level [<color=white>{data.Key}</color>] and have <color=yellow>{progress}</color> <color=#FFC0CB>proficiency</color> (<color=white>{ProfessionSystem.GetLevelProgress(steamId, professionHandler)}%</color>) in {professionHandler.GetProfessionName()}");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"你在 {professionHandler.GetProfessionName()} 尚未有任何進度。");
+            LocalizationService.HandleReply(ctx, $"No progress in {professionHandler.GetProfessionName()} yet!");
         }
     }
 
@@ -69,33 +69,33 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到指定玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
         if (level < 0 || level > MAX_PROFESSION_LEVEL)
         {
-            LocalizationService.HandleReply(ctx, $"等級必須介於 0 到 {MAX_PROFESSION_LEVEL} 之間。");
+            LocalizationService.HandleReply(ctx, $"Level must be between 0 and {MAX_PROFESSION_LEVEL}.");
             return;
         }
 
         if (!Enum.TryParse(profession, true, out ProfessionType professionType))
         {
-            LocalizationService.HandleReply(ctx, $"可用職業：{ProfessionFactory.GetProfessionNames()}");
+            LocalizationService.HandleReply(ctx, $"Valid professions: {ProfessionFactory.GetProfessionNames()}");
             return;
         }
 
         IProfession professionHandler = ProfessionFactory.GetProfession(professionType);
         if (professionHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的職業。");
+            LocalizationService.HandleReply(ctx, "Invalid profession.");
             return;
         }
 
@@ -104,7 +104,7 @@ internal static class ProfessionCommands
         float xp = ConvertLevelToXp(level);
         professionHandler.SetProfessionData(steamId, new KeyValuePair<int, float>(level, xp));
 
-        LocalizationService.HandleReply(ctx, $"{professionHandler.GetProfessionName()} 已設為等級 <color=white>{level}</color>，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>");
+        LocalizationService.HandleReply(ctx, $"{professionHandler.GetProfessionName()} set to [<color=white>{level}</color>] for <color=green>{playerInfo.User.CharacterName.Value}</color>");
     }
 
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".prof l", description: "Lists professions available.")]
@@ -112,10 +112,10 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
-        LocalizationService.HandleReply(ctx, $"可用職業：{ProfessionFactory.GetProfessionNames()}");
+        LocalizationService.HandleReply(ctx, $"Available professions: {ProfessionFactory.GetProfessionNames()}");
     }
 }
