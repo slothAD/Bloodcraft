@@ -194,7 +194,7 @@ internal static class EmoteSystemPatch
         }
         else
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "找不到活躍的使魔…");
+            LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
         }
     }
     public static void CombatMode(User user, Entity playerCharacter, ulong steamId)
@@ -216,7 +216,7 @@ internal static class EmoteSystemPatch
 
             if (!familiar.Exists())
             {
-                LocalizationService.HandleServerReply(EntityManager, user, "找不到活躍的使魔…");
+                LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
                 return;
             }
             else if (familiar.HasBuff(_invulnerableBuff))
@@ -240,7 +240,7 @@ internal static class EmoteSystemPatch
         }
         else
         {
-            LocalizationService.HandleServerReply(EntityManager, user, "找不到活躍的使魔…");
+            LocalizationService.HandleServerReply(EntityManager, user, "Couldn't find active familiar...");
         }
     }
     public static void InteractMode(User user, Entity playerCharacter, ulong steamId)

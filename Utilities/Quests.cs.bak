@@ -39,7 +39,7 @@ internal static class Quests
         {
             if (!QuestService.TargetCache.TryGetValue(questObjective.Objective.Target, out HashSet<Entity> entities))
             {
-                LocalizationService.HandleReply(ctx, $"所有目標已被擊殺，請稍待其重生！如與預期不符，可考慮重擲你的 {QuestTypeColor[questType]} 任務。");
+                LocalizationService.HandleReply(ctx, $"Targets have all been killed, give them a chance to respawn! If this doesn't seem right consider rerolling your {QuestTypeColor[questType]}.");
             }
             else if (entities.Count > 0)
             {
@@ -75,12 +75,12 @@ internal static class Quests
 
                 if (!closest.Exists())
                 {
-                    LocalizationService.HandleReply(ctx, "所有目標已被擊殺，請稍待其重生！");
+                    LocalizationService.HandleReply(ctx, "Targets have all been killed, give them a chance to respawn!");
                     return;
                 }
                 else if (closest.IsVBloodOrGateBoss())
                 {
-                    LocalizationService.HandleReply(ctx, "請使用 VBlood 菜單來追蹤首領！");
+                    LocalizationService.HandleReply(ctx, "Use the VBlood menu to track bosses!");
                     return;
                 }
 
@@ -91,16 +91,16 @@ internal static class Quests
                 string cardinalDirection = $"<color=yellow>{GetCardinalDirection(direction)}</color>";
                 double seconds = (DateTime.UtcNow - QuestService._lastUpdate).TotalSeconds;
 
-                LocalizationService.HandleReply(ctx, $"最近的 <color=white>{questObjective.Objective.Target.GetLocalizedName()}</color> 曾在 <color=#00FFFF>{(int)distance}</color>f 外的 {cardinalDirection} 方向出現於 <color=#F88380>{(int)seconds}</color> 秒前。");
+                LocalizationService.HandleReply(ctx, $"Nearest <color=white>{questObjective.Objective.Target.GetLocalizedName()}</color> was <color=#00FFFF>{(int)distance}</color>f away to the {cardinalDirection} <color=#F88380>{(int)seconds}</color>s ago.");
             }
             else if (entities.Count == 0)
             {
-                LocalizationService.HandleReply(ctx, "所有目標已被擊殺，請稍待其重生！");
+                LocalizationService.HandleReply(ctx, "Targets have all been killed, give them a chance to respawn!");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "追蹤功能僅適用於尚未完成的擊殺任務。");
+            LocalizationService.HandleReply(ctx, "Tracking is only available for incomplete kill quests.");
         }
     }
     public static void QuestObjectiveReply(ChatCommandContext ctx, Dictionary<QuestType, (QuestObjective Objective, int Progress, DateTime LastReset)> questData, QuestType questType)
@@ -108,17 +108,17 @@ internal static class Quests
         if (questData.TryGetValue(questType, out var questObjective) && !questObjective.Objective.Complete)
         {
             string timeLeft = GetTimeUntilReset(questObjective, questType);
-            LocalizationService.HandleReply(ctx, $"{QuestTypeColor[questType]}：<color=green>{questObjective.Objective.Goal}</color> <color=white>{questObjective.Objective.Target.GetLocalizedName()}</color>x<color=#FFC0CB>{questObjective.Objective.RequiredAmount}</color> [<color=white>{questObjective.Progress}</color>/<color=yellow>{questObjective.Objective.RequiredAmount}</color>]");
-            LocalizationService.HandleReply(ctx, $"{questType} 任務重置倒數：<color=yellow>{timeLeft}</color> | 目標：<color=white>{questObjective.Objective.Target.GetPrefabName()}</color>");
+            LocalizationService.HandleReply(ctx, $"{QuestTypeColor[questType]}: <color=green>{questObjective.Objective.Goal}</color> <color=white>{questObjective.Objective.Target.GetLocalizedName()}</color>x<color=#FFC0CB>{questObjective.Objective.RequiredAmount}</color> [<color=white>{questObjective.Progress}</color>/<color=yellow>{questObjective.Objective.RequiredAmount}</color>]");
+            LocalizationService.HandleReply(ctx, $"Time until {questType} reset - <color=yellow>{timeLeft}</color> | {_questTargetType[questObjective.Objective.Goal]} Prefab: <color=white>{questObjective.Objective.Target.GetPrefabName()}</color>");
         }
         else if (questObjective.Objective.Complete)
         {
             string timeLeft = GetTimeUntilReset(questObjective, questType);
-            LocalizationService.HandleReply(ctx, $"你已完成 {QuestTypeColor[questType]}！任務將於 <color=yellow>{timeLeft}</color> 後重置。");
+            LocalizationService.HandleReply(ctx, $"You've already completed your {QuestTypeColor[questType]}! Time until {questType} reset - <color=yellow>{timeLeft}</color>");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"你尚未擁有 {QuestTypeColor[questType]} 任務。");
+            LocalizationService.HandleReply(ctx, $"You don't have a {QuestTypeColor[questType]}.");
         }
     }
     static string GetTimeUntilReset((QuestObjective Objective, int Progress, DateTime LastReset) questObjective, QuestType questType)

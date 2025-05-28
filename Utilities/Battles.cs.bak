@@ -194,12 +194,12 @@ internal static class Battles
             BuildBattleGroupDetailsReply(steamId, buffsData, prestigeData, battleGroup.Familiars, ref familiars);
 
             string familiarReply = string.Join(", ", familiars);
-            LocalizationService.HandleReply(ctx, $"戰鬥隊伍 - {familiarReply}");
+            LocalizationService.HandleReply(ctx, $"Battle Group - {familiarReply}");
             return;
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "戰鬥隊伍中沒有使魔！");
+            LocalizationService.HandleReply(ctx, "No familiars in battle group!");
             return;
         }
     }

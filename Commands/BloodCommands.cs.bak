@@ -161,7 +161,7 @@ internal static class BloodCommands
             if (finalBloodType == BloodType.GateBoss || finalBloodType == BloodType.None || finalBloodType == BloodType.VBlood)
             {
                 LocalizationService.HandleReply(ctx,
-                    "血系傳承無效，請使用 '<color=white>.bl l</color>' 查看可用選項。");
+                    "Invalid blood legacy, use '<color=white>.bl l</color>' to see valid options.");
                 return;
             }
 

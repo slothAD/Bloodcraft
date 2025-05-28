@@ -347,14 +347,14 @@ internal static class Familiars
             // Add to set if valid
             if (!prefabEntity.Read<PrefabGUID>().GetPrefabName().StartsWith("CHAR"))
             {
-                LocalizationService.HandleReply(ctx, "無效的單位預設值（雖有匹配，但未以 CHAR/char 開頭）。");
+                LocalizationService.HandleReply(ctx, "Invalid unit prefab (match found but does not start with CHAR/char).");
                 return;
             }
 
             data.FamiliarUnlocks[activeBox].Add(prefabHash);
             SaveFamiliarUnlocksData(steamId, data);
 
-            LocalizationService.HandleReply(ctx, $"<color=green>{new PrefabGUID(prefabHash).GetLocalizedName()}</color> 已新增至 <color=white>{activeBox}</color>。");
+            LocalizationService.HandleReply(ctx, $"<color=green>{new PrefabGUID(prefabHash).GetLocalizedName()}</color> added to <color=white>{activeBox}</color>.");
         }
         else if (unit.ToLower().StartsWith("char")) // search for full and/or partial name match
         {
@@ -378,23 +378,23 @@ internal static class Familiars
             {
                 if (!prefabEntity.Read<PrefabGUID>().GetPrefabName().StartsWith("CHAR"))
                 {
-                    LocalizationService.HandleReply(ctx, "無效的單位名稱（雖有匹配，但未以 CHAR/char 開頭）。");
+                    LocalizationService.HandleReply(ctx, "Invalid unit name (match found but does not start with CHAR/char).");
                     return;
                 }
 
                 data.FamiliarUnlocks[activeBox].Add(match.GuidHash);
                 SaveFamiliarUnlocksData(steamId, data);
 
-                LocalizationService.HandleReply(ctx, $"<color=green>{match.GetLocalizedName()}</color> (<color=yellow>{match.GuidHash}</color>) 已新增至 <color=white>{activeBox}</color>。");
+                LocalizationService.HandleReply(ctx, $"<color=green>{match.GetLocalizedName()}</color> (<color=yellow>{match.GuidHash}</color>) added to <color=white>{activeBox}</color>.");
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "無效的單位名稱（找不到完整或部分匹配）。");
+                LocalizationService.HandleReply(ctx, "Invalid unit name (no full or partial matches).");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "無效的預設值（非整數）或名稱（未以 CHAR/char 開頭）。");
+            LocalizationService.HandleReply(ctx, "Invalid prefab (not an integer) or name (does not start with CHAR/char).");
         }
     }
     public static void TryReturnFamiliar(Entity playerCharacter, Entity familiar)
@@ -880,7 +880,7 @@ internal static class Familiars
 
         if (!steamId.HasActiveFamiliar())
         {
-            LocalizationService.HandleReply(ctx, "找不到活躍的使魔！");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar!");
             return;
         }
 
@@ -900,7 +900,7 @@ internal static class Familiars
 
         if (prestigeData.FamiliarPrestige[familiarId] >= ConfigService.MaxFamiliarPrestiges)
         {
-            LocalizationService.HandleReply(ctx, $"你的使魔已達進階次數上限！（<color=white>{ConfigService.MaxFamiliarPrestiges}</color>）");
+            LocalizationService.HandleReply(ctx, $"Your familiar has already prestiged the maximum number of times! (<color=white>{ConfigService.MaxFamiliarPrestiges}</color>)");
             return;
         }
 
@@ -915,7 +915,7 @@ internal static class Familiars
 
                 if (value < 1 || value > length)
                 {
-                    LocalizationService.HandleReply(ctx, $"無效的使魔進階屬性類型，請使用 '<color=white>.fam lst</color>' 查看選項。");
+                    LocalizationService.HandleReply(ctx, $"Invalid familiar prestige stat type, use '<color=white>.fam lst</color>' to see options.");
                     return;
                 }
 
@@ -927,19 +927,19 @@ internal static class Familiars
                 }
                 else
                 {
-                    LocalizationService.HandleReply(ctx, $"使魔已從進階中獲得 <color=#00FFFF>{FamiliarPrestigeStats[value]}</color>（<color=yellow>{value + 1}</color> 層），請使用 '<color=white>.fam lst</color>' 查看其他選項。");
+                    LocalizationService.HandleReply(ctx, $"Familiar already has <color=#00FFFF>{FamiliarPrestigeStats[value]}</color> (<color=yellow>{value + 1}</color>) from prestiging, use '<color=white>.fam lst</color>' to see options.");
                     return;
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"無效的使魔進階屬性，請使用 '<color=white>.fam lst</color>' 查看選項。");
+                LocalizationService.HandleReply(ctx, $"Invalid familiar prestige stat, use '<color=white>.fam lst</color>' to see options.");
                 return;
             }
         }
         else if (stats.Count >= FamiliarPrestigeStats.Count && !string.IsNullOrEmpty(statType))
         {
-            LocalizationService.HandleReply(ctx, "使魔已擁有全部進階屬性！（使用 '<color=white>.fam pr</color>' 而非 '<color=white>.fam pr [進階屬性]</color>'）");
+            LocalizationService.HandleReply(ctx, "Familiar already has all prestige stats! ('<color=white>.fam pr</color>' instead of '<color=white>.fam pr [PrestigeStat]</color>')");
             return;
         }
         */
@@ -953,22 +953,22 @@ internal static class Familiars
             Entity familiar = GetActiveFamiliar(playerCharacter);
             ModifyUnitStats(familiar, xpData.FamiliarExperience[familiarId].Key, steamId, familiarId);
 
-            LocalizationService.HandleReply(ctx, $"你的使魔已完成第 <color=#90EE90>{prestigeLevel}</color> 次進階；其積累的智慧讓它保留了等級！");
+            LocalizationService.HandleReply(ctx, $"Your familiar has prestiged [<color=#90EE90>{prestigeLevel}</color>]; the accumulated knowledge allowed them to retain their level!");
 
             /*
             if (value == -1)
             {
-                LocalizationService.HandleReply(ctx, $"你的使魔已完成第 <color=#90EE90>{prestigeLevel}</color> 次進階；其積累的智慧讓它保留了等級！");
+                LocalizationService.HandleReply(ctx, $"Your familiar has prestiged [<color=#90EE90>{prestigeLevel}</color>]; the accumulated knowledge allowed them to retain their level!");
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"你的使魔已完成第 <color=#90EE90>{prestigeLevel}</color> 次進階；其積累的智慧讓它保留了等級！（+<color=#00FFFF>{FamiliarPrestigeStats[value]}</color>）");
+                LocalizationService.HandleReply(ctx, $"Your familiar has prestiged [<color=#90EE90>{prestigeLevel}</color>]; the accumulated knowledge allowed them to retain their level! (+<color=#00FFFF>{FamiliarPrestigeStats[value]}</color>)");
             }
             */
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "從背包中移除設計圖失敗！");
+            LocalizationService.HandleReply(ctx, "Failed to remove schematics from your inventory!");
         }
     }
     public static IEnumerator HandleFamiliarShapeshiftRoutine(User user, Entity playerCharacter, Entity familiar)
