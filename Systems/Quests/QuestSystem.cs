@@ -653,7 +653,7 @@ internal static class QuestSystem
             float xpPercentage = XP_PERCENTAGE * _questMultipliers[questType] * 100;
             if (progressType.Contains("expertise") && progressType.Contains("essence")) xpPercentage *= 0.5f;
 
-            string xpMessage = $"You've been awarded <color=yellow>{xpPercentage:F1}%</color> of your total {progressType}!";
+            string xpMessage = $"你獲得了 <color=yellow>{xpPercentage:F1}%</color> 的 {progressType} 總量！";
             LocalizationService.HandleServerReply(EntityManager, user, xpMessage);
         }
     }
@@ -856,9 +856,9 @@ internal static class QuestSystem
 
         if (GetPlayerBool(steamId, QUEST_LOG_KEY) && !quest.Value.Objective.Complete)
         {
-            string message = $"Progress added to {colorType}: <color=green>{quest.Value.Objective.Goal}</color> " +
+            string message = $"進度已增加至 {colorType}：<color=green>{quest.Value.Objective.Goal}</color> " +
                              $"<color=white>{quest.Value.Objective.Target.GetLocalizedName()}</color> " +
-                             $"[<color=white>{questData[quest.Key].Progress}</color>/<color=yellow>{quest.Value.Objective.RequiredAmount}</color>]";
+                             $"[<color=white>{questData[quest.Key].Progress}</color>/<color=yellow>{quest.Value.Objective.RequiredAmount}</color>]」";
 
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }

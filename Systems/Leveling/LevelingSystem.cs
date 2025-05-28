@@ -249,8 +249,8 @@ internal static class LevelingSystem
         {
             int levelProgress = GetLevelProgress(steamId);
             string message = restedXP > 0
-                ? $"+<color=yellow>{gainedIntXP}</color> <color=green>rested</color> <color=#FFC0CB>experience</color> (<color=white>{levelProgress}%</color>)"
-                : $"+<color=yellow>{gainedIntXP}</color> <color=#FFC0CB>experience</color> (<color=white>{levelProgress}%</color>)";
+                ? $"+<color=yellow>{gainedIntXP}</color> <color=green>休息加成</color> <color=#FFC0CB>經驗值</color>（<color=white>{levelProgress}%</color>）"
+                : $"+<color=yellow>{gainedIntXP}</color> <color=#FFC0CB>經驗值</color>（<color=white>{levelProgress}%</color>）";
 
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }

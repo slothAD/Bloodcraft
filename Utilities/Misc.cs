@@ -451,7 +451,7 @@ internal static class Misc
         }
         else
         {
-            string message = "Something fell out of your bag!";
+            string message = "你背包中的某樣東西掉出來了！";
             InventoryUtilitiesServer.CreateDropItem(EntityManager, playerCharacter, itemType, amount, new Entity()); // does this create multiple drops to account for excessive stacks? noting for later
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }

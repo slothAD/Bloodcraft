@@ -465,10 +465,10 @@ internal class BattleService
             if (!battleGroupsValid)
             {
                 string message = !groupOneValid && !groupTwoValid
-                    ? $"Both players have less than <color=white>{TEAM_SIZE}</color> familiars in their battle groups!"
+                    ? $"雙方玩家的戰鬥隊伍中擁有的使魔數都少於 <color=white>{TEAM_SIZE}</color>！"
                     : !groupOneValid
-                        ? $"Player One has less than <color=white>{TEAM_SIZE}</color> familiars in their battle group!"
-                        : $"Player Two has less than <color=white>{TEAM_SIZE}</color> familiars in their battle group!";
+                        ? $"玩家一的使魔不足 <color=white>{TEAM_SIZE}</color>！"
+                        : $"玩家二的戰鬥隊伍中使魔不足 <color=white>{TEAM_SIZE}</color>！";
                 NotifyPlayer(playerOne, message);
                 Core.Log.LogWarning(message);
 

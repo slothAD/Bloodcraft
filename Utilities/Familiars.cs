@@ -732,7 +732,7 @@ internal static class Familiars
         familiar.Destroy();
         ResetActiveFamiliarData(steamId);
 
-        string message = !string.IsNullOrEmpty(shinyHexColor) ? $"<color=green>{prefabGuid.GetLocalizedName()}</color>{shinyHexColor}*</color> <color=#FFC0CB>unbound</color>!" : $"<color=green>{prefabGuid.GetLocalizedName()}</color> <color=#FFC0CB>unbound</color>!";
+        string message = !string.IsNullOrEmpty(shinyHexColor) ? $"<color=green>{prefabGuid.GetLocalizedName()}</color>{shinyHexColor}*</color> <color=#FFC0CB>已解除綁定</color>！" : $"<color=green>{prefabGuid.GetLocalizedName()}</color> <color=#FFC0CB>已解除綁定</color>！";
         LocalizationService.HandleServerReply(EntityManager, user, message);
 
         if (smartBind)

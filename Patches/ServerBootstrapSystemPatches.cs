@@ -338,7 +338,7 @@ internal static class ServerBootstrapSystemPatches
                         int roundedXP = (int)(Math.Round(currentRestedXP / 100.0) * 100);
 
                         steamId.SetPlayerRestedXP(new KeyValuePair<DateTime, float>(DateTime.UtcNow, currentRestedXP));
-                        string message = $"+<color=#FFD700>{roundedXP}</color> <color=green>rested</color> <color=#FFC0CB>experience</color> earned from being logged out in your coffin!";
+                        string message = $"+<color=#FFD700>{roundedXP}</color> <color=green>休息加成</color> <color=#FFC0CB>經驗值</color>，因為你在棺材中離線！";
 
                         LocalizationService.HandleServerReply(EntityManager, user, message);
                     }

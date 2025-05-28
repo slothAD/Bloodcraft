@@ -497,7 +497,7 @@ internal static class PrestigeCommands
             }
 
             TogglePlayerBool(steamId, SHAPESHIFT_KEY);
-            ctx.Reply($"Exo form emote action (<color=white>taunt</color>) {(GetPlayerBool(steamId, SHAPESHIFT_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}");
+            ctx.Reply($"變形體表情動作（<color=white>挑釁</color>）{(GetPlayerBool(steamId, SHAPESHIFT_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}");
         }
         else
         {

@@ -100,7 +100,7 @@ internal static class WeaponCommands
         var steamId = ctx.Event.User.PlatformId;
         TogglePlayerBool(steamId, WEAPON_LOG_KEY);
 
-        LocalizationService.HandleReply(ctx, $"Expertise logging is now {(GetPlayerBool(steamId, WEAPON_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"武器專精紀錄現在為 {(GetPlayerBool(steamId, WEAPON_LOG_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "choosestat", shortHand: "cst", adminOnly: false, usage: ".wep cst [WeaponOrStat] [WeaponStat]", description: "Choose a weapon stat to enhance based on your expertise.")]

@@ -31,7 +31,7 @@ internal static class MiscCommands
         ulong steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, REMINDERS_KEY);
-        LocalizationService.HandleReply(ctx, $"Reminders {(GetPlayerBool(steamId, REMINDERS_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"提醒功能 {(GetPlayerBool(steamId, REMINDERS_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "sct", adminOnly: false, usage: ".misc sct [Type]", description: "Toggles various scrolling text elements.")]
@@ -65,7 +65,7 @@ internal static class MiscCommands
             TogglePlayerBool(steamId, boolKey);
             bool currentState = GetPlayerBool(steamId, boolKey);
 
-            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> scrolling text {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> 滾動文字 {(currentState ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
         }
         else
         {
@@ -84,7 +84,7 @@ internal static class MiscCommands
             TogglePlayerBool(steamId, boolKey);
             bool currentState = GetPlayerBool(steamId, boolKey);
 
-            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> scrolling text {(currentState ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+            LocalizationService.HandleReply(ctx, $"<color=white>{sctType}</color> 滾動文字 {(currentState ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
         }
     }
 
