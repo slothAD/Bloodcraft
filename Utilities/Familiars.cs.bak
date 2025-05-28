@@ -347,7 +347,7 @@ internal static class Familiars
             // Add to set if valid
             if (!prefabEntity.Read<PrefabGUID>().GetPrefabName().StartsWith("CHAR"))
             {
-                LocalizationService.HandleReply(ctx, "無效的單位預設值（雖有匹配，但未以 CHAR/char 開頭）。");
+                LocalizationService.HandleReply(ctx, "Invalid unit prefab (match found but does not start with CHAR/char).");
                 return;
             }
 
@@ -378,7 +378,7 @@ internal static class Familiars
             {
                 if (!prefabEntity.Read<PrefabGUID>().GetPrefabName().StartsWith("CHAR"))
                 {
-                    LocalizationService.HandleReply(ctx, "無效的單位名稱（雖有匹配，但未以 CHAR/char 開頭）。");
+                    LocalizationService.HandleReply(ctx, "Invalid unit name (match found but does not start with CHAR/char).");
                     return;
                 }
 
@@ -389,12 +389,12 @@ internal static class Familiars
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "無效的單位名稱（找不到完整或部分匹配）。");
+                LocalizationService.HandleReply(ctx, "Invalid unit name (no full or partial matches).");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "無效的預設值（非整數）或名稱（未以 CHAR/char 開頭）。");
+            LocalizationService.HandleReply(ctx, "Invalid prefab (not an integer) or name (does not start with CHAR/char).");
         }
     }
     public static void TryReturnFamiliar(Entity playerCharacter, Entity familiar)
@@ -880,7 +880,7 @@ internal static class Familiars
 
         if (!steamId.HasActiveFamiliar())
         {
-            LocalizationService.HandleReply(ctx, "找不到活躍的使魔！");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar!");
             return;
         }
 
@@ -939,7 +939,7 @@ internal static class Familiars
         }
         else if (stats.Count >= FamiliarPrestigeStats.Count && !string.IsNullOrEmpty(statType))
         {
-            LocalizationService.HandleReply(ctx, "使魔已擁有全部進階屬性！（使用 '<color=white>.fam pr</color>' 而非 '<color=white>.fam pr [進階屬性]</color>'）");
+            LocalizationService.HandleReply(ctx, "Familiar already has all prestige stats! ('<color=white>.fam pr</color>' instead of '<color=white>.fam pr [PrestigeStat]</color>')");
             return;
         }
         */
@@ -968,7 +968,7 @@ internal static class Familiars
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "從背包中移除設計圖失敗！");
+            LocalizationService.HandleReply(ctx, "Failed to remove schematics from your inventory!");
         }
     }
     public static IEnumerator HandleFamiliarShapeshiftRoutine(User user, Entity playerCharacter, Entity familiar)

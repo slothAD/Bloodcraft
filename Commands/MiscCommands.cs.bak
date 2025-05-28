@@ -58,7 +58,7 @@ internal static class MiscCommands
 
             if (!ScrollingTextBoolKeyMap.TryGetValue(sctType, out var boolKey))
             {
-                LocalizationService.HandleReply(ctx, "無法從滾動文字類型中取得布林鍵值…");
+                LocalizationService.HandleReply(ctx, "Couldn't find bool key from scrolling text type...");
                 return;
             }
 
@@ -77,7 +77,7 @@ internal static class MiscCommands
 
             if (!ScrollingTextBoolKeyMap.TryGetValue(sctType, out var boolKey))
             {
-                LocalizationService.HandleReply(ctx, "無法從滾動文字類型中取得布林鍵值…");
+                LocalizationService.HandleReply(ctx, "Couldn't find bool key from scrolling text type...");
                 return;
             }
 
@@ -93,7 +93,7 @@ internal static class MiscCommands
     {
         if (!ConfigService.StarterKit)
         {
-            LocalizationService.HandleReply(ctx, "新手套裝尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Starter kit is not enabled.");
             return;
         }
 
@@ -124,7 +124,7 @@ internal static class MiscCommands
         }
         else
         {
-            ctx.Reply("你已經使用過新手套裝了！");
+            ctx.Reply("You've already used your starting kit!");
         }
     }
 
@@ -133,7 +133,7 @@ internal static class MiscCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
@@ -145,7 +145,7 @@ internal static class MiscCommands
         Entity achievementOwnerEntity = userEntity.Read<AchievementOwner>().Entity._Entity;
 
         ClaimAchievementSystem.CompleteAchievement(entityCommandBuffer, achievementPrefabGUID, userEntity, characterEntity, achievementOwnerEntity, false, true);
-        LocalizationService.HandleReply(ctx, "你已準備好狩獵了！");
+        LocalizationService.HandleReply(ctx, "You are now prepared for the hunt!");
     }
 
     [Command(name: "userstats", adminOnly: false, usage: ".misc userstats", description: "Shows neat information about the player.")]
@@ -177,7 +177,7 @@ internal static class MiscCommands
 
         if (ServerGameManager.HasBuff(character, _combatBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "此指令僅應在必要時使用，切勿於戰鬥中操作。");
+            LocalizationService.HandleReply(ctx, "This command should only be used as required and certainly not while in combat.");
             return;
         }
 
@@ -186,6 +186,6 @@ internal static class MiscCommands
         character.Write(combatMusicListener_Shared);
 
         CombatMusicSystemServer.OnUpdate();
-        ctx.Reply($"戰鬥音樂已清除！");
+        ctx.Reply($"Combat music cleared!");
     }
 }

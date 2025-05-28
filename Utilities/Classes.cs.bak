@@ -891,7 +891,7 @@ internal static class Classes
             /*
             if (value < 1 || value > 6)
             {
-                LocalizationService.HandleReply(ctx, "無效的職業，請使用 <color=white>'.class l'</color> 查看可用選項。");
+                LocalizationService.HandleReply(ctx, "Invalid class, use <color=white>'.class l'</color> to see options.");
                 return null;
             }
             */
@@ -903,7 +903,7 @@ internal static class Classes
         {
             if (!TryParseClassName(input, out PlayerClass playerClass))
             {
-                LocalizationService.HandleReply(ctx, "無效的職業，請使用 <color=white>'.class l'</color> 查看可用選項。");
+                LocalizationService.HandleReply(ctx, "Invalid class, use <color=white>'.class l'</color> to see options.");
                 return null;
             }
 
@@ -1063,7 +1063,7 @@ internal static class Classes
             ApplyClassBuffs(playerInfo.CharEntity, steamId);
         }
 
-        ctx.Reply("已清除並重新套用所有玩家的當前職業增益效果。");
+        ctx.Reply("Removed all class buffs then applied current class buffs for all players.");
     }
     public static void GlobalPurgeClassBuffs(ChatCommandContext ctx)
     {
@@ -1077,7 +1077,7 @@ internal static class Classes
             RemoveAllClassBuffs(playerInfo.CharEntity);
         }
 
-        ctx.Reply("已移除所有玩家的職業增益效果。");
+        ctx.Reply("Removed all class buffs for all players.");
     }
     public static string FormatModifyUnitStatBuffer(Entity buffEntity)
     {

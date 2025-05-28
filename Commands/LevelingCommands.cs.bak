@@ -17,7 +17,7 @@ internal static class LevelingCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
@@ -32,7 +32,7 @@ internal static class LevelingCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
@@ -57,7 +57,7 @@ internal static class LevelingCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你尚未獲得任何經驗值！");
+            LocalizationService.HandleReply(ctx, "You haven't earned any experience yet!");
         }
     }
 
@@ -66,14 +66,14 @@ internal static class LevelingCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -106,14 +106,14 @@ internal static class LevelingCommands
     {
         if (!ConfigService.LevelingSystem)
         {
-            LocalizationService.HandleReply(ctx, "等級系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leveling is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家…");
+            ctx.Reply($"Couldn't find player...");
             return;
         }
 
@@ -122,14 +122,14 @@ internal static class LevelingCommands
             DataService.PlayerDictionaries._ignoreSharedExperience.Add(playerInfo.User.PlatformId);
             DataService.PlayerPersistence.SaveIgnoredSharedExperience();
 
-            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> 已被加入忽略共享經驗名單！");
+            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> added to the ignore shared experience list!");
         }
         else if (DataService.PlayerDictionaries._ignoreSharedExperience.Contains(playerInfo.User.PlatformId))
         {
             DataService.PlayerDictionaries._ignoreSharedExperience.Remove(playerInfo.User.PlatformId);
             DataService.PlayerPersistence.SaveIgnoredSharedExperience();
 
-            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> 已從忽略共享經驗名單中移除！");
+            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> removed from the ignore shared experience list!");
         }
     }
 }

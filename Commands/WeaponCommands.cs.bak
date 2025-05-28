@@ -34,7 +34,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -44,7 +44,7 @@ internal static class WeaponCommands
         IWeaponExpertise handler = WeaponExpertiseFactory.GetExpertise(weaponType);
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "武器的專精處理器為空，這不應該發生，請通知開發者。");
+            LocalizationService.HandleReply(ctx, "Expertise handler for weapon is null; this shouldn't happen and you may want to inform the developer.");
             return;
         }
 
@@ -79,7 +79,7 @@ internal static class WeaponCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "當前裝備的武器無任何加成。");
+                LocalizationService.HandleReply(ctx, "No bonuses from currently equipped weapon.");
             }
         }
         else
@@ -93,7 +93,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -108,7 +108,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -180,7 +180,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -224,14 +224,14 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -251,7 +251,7 @@ internal static class WeaponCommands
         IWeaponExpertise expertiseHandler = WeaponExpertiseFactory.GetExpertise(weaponType);
         if (expertiseHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的武器類型。");
+            LocalizationService.HandleReply(ctx, "Invalid weapon type.");
             return;
         }
 
@@ -267,7 +267,7 @@ internal static class WeaponCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "無法對應此武器類型的儲存方法…");
+            LocalizationService.HandleReply(ctx, "Couldn't find matching save method for weapon type...");
         }
     }
 
@@ -276,7 +276,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -288,7 +288,7 @@ internal static class WeaponCommands
 
         if (weaponStatsWithCaps.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, "目前無可用的武器屬性。");
+            LocalizationService.HandleReply(ctx, "No weapon stats available at this time.");
         }
         else
         {
@@ -307,7 +307,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.ExpertiseSystem)
         {
-            LocalizationService.HandleReply(ctx, "專精系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Expertise is not enabled.");
             return;
         }
 
@@ -320,13 +320,13 @@ internal static class WeaponCommands
     {
         if (!ConfigService.UnarmedSlots)
         {
-            LocalizationService.HandleReply(ctx, "額外技能欄位尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Extra spell slots are not enabled.");
             return;
         }
 
         if (slot < 1 || slot > 7)
         {
-            LocalizationService.HandleReply(ctx, "無效的欄位（<color=white>1</color> 對應 Q 鍵，<color=white>2</color> 對應 E 鍵）");
+            LocalizationService.HandleReply(ctx, "Invalid slot (<color=white>1</color> for Q or <color=white>2</color> for E)");
             return;
         }
 
@@ -366,7 +366,7 @@ internal static class WeaponCommands
         }
         else if (radius < 0f)
         {
-            LocalizationService.HandleReply(ctx, "半徑數值必須為正！");
+            LocalizationService.HandleReply(ctx, "Radius must be positive!");
             return;
         }
         else
@@ -374,7 +374,7 @@ internal static class WeaponCommands
             PlayerInfo playerInfo = GetPlayerInfo(name);
             if (!playerInfo.UserEntity.Exists())
             {
-                ctx.Reply($"找不到玩家。");
+                ctx.Reply($"Couldn't find player.");
                 return;
             }
 
@@ -403,7 +403,7 @@ internal static class WeaponCommands
     {
         if (!ConfigService.UnarmedSlots)
         {
-            LocalizationService.HandleReply(ctx, "徒手額外技能欄位尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Extra spell slots for unarmed are not enabled.");
             return;
         }
 
@@ -413,7 +413,7 @@ internal static class WeaponCommands
 
         if (playerCharacter.HasBuff(_exoFormBuff))
         {
-            LocalizationService.HandleReply(ctx, "使用 Exo 形態時無法鎖定技能。");
+            LocalizationService.HandleReply(ctx, "Spells cannot be locked when using exoform.");
             return;
         }
 
@@ -421,11 +421,11 @@ internal static class WeaponCommands
 
         if (GetPlayerBool(SteamID, SPELL_LOCK_KEY))
         {
-            LocalizationService.HandleReply(ctx, "將想要的技能設為徒手欄位，完成後請再次切換以確認。");
+            LocalizationService.HandleReply(ctx, "Change spells to the ones you want in your unarmed slots. When done, toggle this again.");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "技能已鎖定。");
+            LocalizationService.HandleReply(ctx, "Spells locked.");
         }
     }
 }

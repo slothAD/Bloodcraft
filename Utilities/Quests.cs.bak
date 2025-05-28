@@ -75,12 +75,12 @@ internal static class Quests
 
                 if (!closest.Exists())
                 {
-                    LocalizationService.HandleReply(ctx, "所有目標已被擊殺，請稍待其重生！");
+                    LocalizationService.HandleReply(ctx, "Targets have all been killed, give them a chance to respawn!");
                     return;
                 }
                 else if (closest.IsVBloodOrGateBoss())
                 {
-                    LocalizationService.HandleReply(ctx, "請使用 VBlood 菜單來追蹤首領！");
+                    LocalizationService.HandleReply(ctx, "Use the VBlood menu to track bosses!");
                     return;
                 }
 
@@ -95,12 +95,12 @@ internal static class Quests
             }
             else if (entities.Count == 0)
             {
-                LocalizationService.HandleReply(ctx, "所有目標已被擊殺，請稍待其重生！");
+                LocalizationService.HandleReply(ctx, "Targets have all been killed, give them a chance to respawn!");
             }
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "追蹤功能僅適用於尚未完成的擊殺任務。");
+            LocalizationService.HandleReply(ctx, "Tracking is only available for incomplete kill quests.");
         }
     }
     public static void QuestObjectiveReply(ChatCommandContext ctx, Dictionary<QuestType, (QuestObjective Objective, int Progress, DateTime LastReset)> questData, QuestType questType)

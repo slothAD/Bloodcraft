@@ -72,7 +72,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -87,7 +87,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -102,7 +102,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -145,8 +145,8 @@ internal static class FamiliarCommands
         }
         else if (string.IsNullOrEmpty(box))
         {
-            // LocalizationService.HandleReply(ctx, "未找到使用中的收納箱！若知道使魔名稱，可使用 <color=white>'.fam sb [名稱]'</color>（名稱含空格請加上引號）進行查找。");
-            LocalizationService.HandleReply(ctx, "找不到目前使用中的收納箱！");
+            // LocalizationService.HandleReply(ctx, "No active box! Try using <color=white>'.fam sb [Name]'</color> if you know the familiar you're looking for. (use quotes for names with a space)");
+            LocalizationService.HandleReply(ctx, "Couldn't find active box!");
         }
     }
 
@@ -155,7 +155,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -184,7 +184,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你尚未解鎖任何項目！");
+            LocalizationService.HandleReply(ctx, "You don't have any unlocks yet!");
         }
     }
 
@@ -193,7 +193,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -207,7 +207,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到收納箱！");
+            LocalizationService.HandleReply(ctx, "Couldn't find box!");
         }
     }
 
@@ -216,7 +216,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -242,7 +242,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到可重新命名的收納箱，或已有同名的箱子！");
+            LocalizationService.HandleReply(ctx, "Couldn't find box to rename or there's already a box with that name!");
         }
     }
 
@@ -251,7 +251,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -284,11 +284,11 @@ internal static class FamiliarCommands
         }
         else if (data.FamiliarUnlocks.ContainsKey(name))
         {
-            LocalizationService.HandleReply(ctx, "收納箱已滿！");
+            LocalizationService.HandleReply(ctx, "Box is full!");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到收納箱！");
+            LocalizationService.HandleReply(ctx, "Couldn't find box!");
         }
     }
 
@@ -297,7 +297,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -314,11 +314,11 @@ internal static class FamiliarCommands
         }
         else if (data.FamiliarUnlocks.ContainsKey(name))
         {
-            LocalizationService.HandleReply(ctx, "收納箱尚未清空！");
+            LocalizationService.HandleReply(ctx, "Box is not empty!");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到收納箱！");
+            LocalizationService.HandleReply(ctx, "Couldn't find box!");
         }
     }
 
@@ -327,7 +327,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -353,14 +353,14 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -397,17 +397,17 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
         else if (!ConfigService.AllowVBloods)
         {
-            LocalizationService.HandleReply(ctx, "VBlood 使魔尚未啟用。");
+            LocalizationService.HandleReply(ctx, "VBlood familiars are not enabled.");
             return;
         }
         else if (!ConfigService.PrimalEchoes)
         {
-            LocalizationService.HandleReply(ctx, "VBlood 購買功能尚未啟用。");
+            LocalizationService.HandleReply(ctx, "VBlood purchasing is not enabled.");
             return;
         }
 
@@ -417,12 +417,12 @@ internal static class FamiliarCommands
 
         if (!vBloodPrefabGuids.Any())
         {
-            LocalizationService.HandleReply(ctx, "找不到對應的 vBlood！");
+            LocalizationService.HandleReply(ctx, "Couldn't find matching vBlood!");
             return;
         }
         else if (vBloodPrefabGuids.Count > 1)
         {
-            LocalizationService.HandleReply(ctx, "匹配項目過多，請提供更明確的名稱！");
+            LocalizationService.HandleReply(ctx, "Multiple matches, please be more specific!");
             return;
         }
 
@@ -507,7 +507,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -531,7 +531,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到目前使用中的使魔收納箱，無法移除…");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar box to remove from...");
         }
     }
 
@@ -540,7 +540,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -549,12 +549,12 @@ internal static class FamiliarCommands
 
         if (ServerGameManager.HasBuff(playerCharacter, _dominateBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "支配氣場狀態下無法召喚使魔！");
+            LocalizationService.HandleReply(ctx, "You can't call a familiar when using dominating presence!");
             return;
         }
         else if (ServerGameManager.HasBuff(playerCharacter, _takeFlightBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "蝙蝠形態下無法召喚使魔！");
+            LocalizationService.HandleReply(ctx, "You can't call a familiar when using batform!");
             return;
         }
 
@@ -566,7 +566,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -574,17 +574,17 @@ internal static class FamiliarCommands
 
         if (ServerGameManager.HasBuff(playerCharacter, _dominateBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "支配氣場狀態下無法切換使魔戰鬥狀態！");
+            LocalizationService.HandleReply(ctx, "You can't toggle combat for a familiar when using dominating presence!");
             return;
         }
         else if (ServerGameManager.HasBuff(playerCharacter, _takeFlightBuff.ToIdentifier()))
         {
-            LocalizationService.HandleReply(ctx, "蝙蝠形態下無法切換使魔戰鬥狀態！");
+            LocalizationService.HandleReply(ctx, "You can't toggle combat for a familiar when using batform!");
             return;
         }
         else if (playerCharacter.HasBuff(_pveCombatBuff) || playerCharacter.HasBuff(_pvpCombatBuff))
         {
-            LocalizationService.HandleReply(ctx, "使魔正在 PvP/PvE 戰鬥中，無法切換戰鬥模式！");
+            LocalizationService.HandleReply(ctx, "You can't toggle combat for a familiar in PvP/PvE combat!");
             return;
         }
 
@@ -597,7 +597,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -612,7 +612,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -635,7 +635,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -789,7 +789,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到活躍的使魔！");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar!");
         }
     }
 
@@ -798,7 +798,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -811,7 +811,7 @@ internal static class FamiliarCommands
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -838,7 +838,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到活躍的使魔……");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar....");
         }
     }
 
@@ -847,13 +847,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarPrestige)
         {
-            LocalizationService.HandleReply(ctx, "使魔進階尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar prestige is not enabled.");
             return;
         }
 
@@ -887,7 +887,7 @@ internal static class FamiliarCommands
 
                 if (prestigeData.FamiliarPrestige[familiarId] >= ConfigService.MaxFamiliarPrestiges)
                 {
-                    LocalizationService.HandleReply(ctx, "使魔已達最大進階次數！");
+                    LocalizationService.HandleReply(ctx, "Familiar is already at maximum number of prestiges!");
                     return;
                 }
 
@@ -924,7 +924,7 @@ internal static class FamiliarCommands
                 }
                 else if (stats.Count >= FamiliarPrestigeStats.Count && !string.IsNullOrEmpty(statType))
                 {
-                    LocalizationService.HandleReply(ctx, "使魔已擁有全部進階屬性！（使用 '<color=white>.fam pr</color>' 而非 '<color=white>.fam pr [進階屬性]</color>'）");
+                    LocalizationService.HandleReply(ctx, "Familiar already has all prestige stats! ('<color=white>.fam pr</color>' instead of '<color=white>.fam pr [PrestigeStat]</color>')");
                     return;
                 }
                 */
@@ -960,7 +960,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到可用於進階的活躍使魔！");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar for prestiging!");
         }
     }
 
@@ -969,7 +969,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -978,7 +978,7 @@ internal static class FamiliarCommands
 
         if (familiar.Exists())
         {
-            ctx.Reply("看起來你的使魔仍可召喚；若已解除召喚，請正常解除綁定。");
+            ctx.Reply("Looks like your familiar is still able to be found; unbind it normally after calling if it's dismissed instead.");
             return;
         }
 
@@ -1001,7 +1001,7 @@ internal static class FamiliarCommands
         ResetActiveFamiliarData(steamId);
         AutoCallMap.TryRemove(playerCharacter, out Entity _);
 
-        LocalizationService.HandleReply(ctx, "已清除使魔的所有活躍狀態與跟隨者。");
+        LocalizationService.HandleReply(ctx, "Familiar actives and followers cleared.");
     }
 
     [Command(name: "search", shortHand: "s", adminOnly: false, usage: ".fam s [Name]", description: "Searches boxes for familiar(s) with matching name.")]
@@ -1009,7 +1009,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -1098,7 +1098,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你尚未解鎖任何使魔。");
+            LocalizationService.HandleReply(ctx, "You don't have any unlocked familiars yet.");
         }
     }
 
@@ -1107,7 +1107,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -1124,7 +1124,7 @@ internal static class FamiliarCommands
 
         if (data.FamiliarUnlocks.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, "你尚未解鎖任何使魔！");
+            LocalizationService.HandleReply(ctx, "You haven't unlocked any familiars yet!");
             return;
         }
 
@@ -1179,7 +1179,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找到多個匹配項目！SmartBind 尚不支援此操作……（開發中）");
+            LocalizationService.HandleReply(ctx, "Multiple matches found! SmartBind doesn't support this yet... (WIP)");
         }
     }
 
@@ -1188,7 +1188,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -1197,7 +1197,7 @@ internal static class FamiliarCommands
 
         if (!ShinyBuffColorHexes.ContainsKey(spellSchoolPrefabGuid))
         {
-            LocalizationService.HandleReply(ctx, "無法從指定的法術學派中找到對應的閃耀增益。（可用學派：blood, storm, unholy, chaos, frost, illusion）");
+            LocalizationService.HandleReply(ctx, "Couldn't find matching shinyBuff from entered spell school. (options: blood, storm, unholy, chaos, frost, illusion)");
             return;
         }
 
@@ -1219,7 +1219,7 @@ internal static class FamiliarCommands
                 {
                     if (ServerGameManager.TryRemoveInventoryItem(inventoryEntity, _vampiricDust, clampedCost) && HandleShiny(famKey, steamId, 1f, spellSchoolPrefabGuid.GuidHash))
                     {
-                        LocalizationService.HandleReply(ctx, "已新增閃耀增益！請重新綁定使魔以顯示效果。使用 '<color=white>.fam option shiny</color>' 可切換（若未啟用閃耀增益，命中將無法施加法術學派減益）。");
+                        LocalizationService.HandleReply(ctx, "Shiny added! Rebind familiar to see effects. Use '<color=white>.fam option shiny</color>' to toggle (no chance to apply spell school debuff on hit if shiny buffs are disabled).");
                         return;
                     }
                 }
@@ -1236,7 +1236,7 @@ internal static class FamiliarCommands
                 {
                     if (ServerGameManager.TryRemoveInventoryItem(inventoryEntity, _vampiricDust, changeQuantity) && HandleShiny(famKey, steamId, 1f, spellSchoolPrefabGuid.GuidHash))
                     {
-                        LocalizationService.HandleReply(ctx, "閃耀增益已更換！請重新綁定使魔以顯示效果。使用 '<color=white>.fam option shiny</color>' 可切換（若未啟用閃耀增益，命中將無法施加法術學派減益）。");
+                        LocalizationService.HandleReply(ctx, "Shiny changed! Rebind familiar to see effects. Use '<color=white>.fam option shiny</color>' to toggle (no chance to apply spell school debuff on hit if shiny buffs are disabled).");
                         return;
                     }
                 }
@@ -1248,7 +1248,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到活躍的使魔…");
+            LocalizationService.HandleReply(ctx, "Couldn't find active familiar...");
         }
     }
 
@@ -1257,7 +1257,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
@@ -1283,13 +1283,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1299,7 +1299,7 @@ internal static class FamiliarCommands
         if (data.BattleGroups.Count > 0)
         {
             List<string> battleGroupNames = [..data.BattleGroups.Select(bg => bg.Name)];
-            LocalizationService.HandleReply(ctx, "使魔戰鬥隊伍：");
+            LocalizationService.HandleReply(ctx, "Familiar Battle Groups:");
 
             List<string> formattedGroups = [..battleGroupNames.Select(bg => $"<color=white>{bg}</color>")];
             const int maxPerMessage = 5;
@@ -1312,7 +1312,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你尚未建立任何戰鬥隊伍。");
+            LocalizationService.HandleReply(ctx, "You have no battle groups.");
         }
     }
 
@@ -1321,13 +1321,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1338,7 +1338,7 @@ internal static class FamiliarCommands
             groupName = GetActiveBattleGroupName(steamId);
             if (string.IsNullOrEmpty(groupName))
             {
-                LocalizationService.HandleReply(ctx, "尚未選擇任何戰鬥隊伍！請使用 <color=white>.fam cbg [名稱]</color> 來選擇。");
+                LocalizationService.HandleReply(ctx, "No active battle group selected! Use <color=white>.fam cbg [Name]</color> to select one.");
                 return;
             }
         }
@@ -1352,13 +1352,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1369,7 +1369,7 @@ internal static class FamiliarCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "找不到戰鬥隊伍。");
+            LocalizationService.HandleReply(ctx, "Battle group not found.");
         }
     }
 
@@ -1378,13 +1378,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1400,13 +1400,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1425,13 +1425,13 @@ internal static class FamiliarCommands
 
         if (string.IsNullOrEmpty(groupName))
         {
-            LocalizationService.HandleReply(ctx, "尚未選擇任何戰鬥隊伍！請使用 <color=white>.fam cbg [名稱]</color> 來選擇。");
+            LocalizationService.HandleReply(ctx, "No active battle group selected! Use <color=white>.fam cbg [Name]</color> to select one.");
             return;
         }
 
         if (slotIndex < 1 || slotIndex > 3)
         {
-            LocalizationService.HandleReply(ctx, "欄位輸入超出範圍！（請使用 <color=white>1、2、</color> 或 <color=white>3</color>）");
+            LocalizationService.HandleReply(ctx, "Slot input out of range! (use <color=white>1, 2,</color> or <color=white>3</color>)");
             return;
         }
 
@@ -1446,13 +1446,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1468,7 +1468,7 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem || !ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1484,7 +1484,7 @@ internal static class FamiliarCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "你目前未在戰鬥佇列中！請使用 '<color=white>.fam challenge [玩家名稱]</color>' 來發起挑戰。");
+                LocalizationService.HandleReply(ctx, "You're not currently queued for battle! Use '<color=white>.fam challenge [PlayerName]</color>' to challenge another player.");
             }
             return;
         }
@@ -1499,13 +1499,13 @@ internal static class FamiliarCommands
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply("找不到玩家。");
+            ctx.Reply("Couldn't find player.");
             return;
         }
 
         if (playerInfo.User.PlatformId == steamId)
         {
-            ctx.Reply("你不能向自己發起挑戰！");
+            ctx.Reply("You can't challenge yourself!");
             return;
         }
 
@@ -1517,18 +1517,18 @@ internal static class FamiliarCommands
 
         if (EmoteSystemPatch.BattleChallenges.Any(challenge => challenge.Item1 == steamId || challenge.Item2 == steamId))
         {
-            ctx.Reply("目前已有挑戰進行中，請等待其結束或被拒絕後再進行新挑戰！");
+            ctx.Reply("Can't challenge another player until an existing challenge expires or is declined!");
             return;
         }
 
         if (EmoteSystemPatch.BattleChallenges.Any(challenge => challenge.Item1 == playerInfo.User.PlatformId || challenge.Item2 == playerInfo.User.PlatformId))
         {
-            ctx.Reply($"<color=green>{playerInfo.User.CharacterName}</color> 已有一項尚未處理的挑戰！");
+            ctx.Reply($"<color=green>{playerInfo.User.CharacterName}</color> already has a pending challenge!");
             return;
         }
 
         EmoteSystemPatch.BattleChallenges.Add((ctx.User.PlatformId, playerInfo.User.PlatformId));
-        ctx.Reply($"已向 <color=white>{playerInfo.User.CharacterName.Value}</color> 發起挑戰！（<color=yellow>30 秒</color>後過期）");
+        ctx.Reply($"Challenged <color=white>{playerInfo.User.CharacterName.Value}</color> to a battle! (<color=yellow>30s</color> until it expires)");
         LocalizationService.HandleServerReply(EntityManager, playerInfo.User, $"<color=white>{ctx.User.CharacterName.Value}</color> has challenged you to a battle! (<color=yellow>30s</color> until it expires, accept by emoting '<color=green>Yes</color>' or decline by emoting '<color=red>No</color>')");
 
         ChallengeExpiredRoutine((ctx.User.PlatformId, playerInfo.User.PlatformId)).Start();
@@ -1539,13 +1539,13 @@ internal static class FamiliarCommands
     {
         if (!ConfigService.FamiliarSystem)
         {
-            LocalizationService.HandleReply(ctx, "使魔系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiars are not enabled.");
             return;
         }
 
         if (!ConfigService.FamiliarBattles)
         {
-            LocalizationService.HandleReply(ctx, "使魔戰鬥尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Familiar battles are not enabled.");
             return;
         }
 
@@ -1561,14 +1561,14 @@ internal static class FamiliarCommands
         if (_battlePosition.Equals(float3.zero))
         {
             Initialize();
-            LocalizationService.HandleReply(ctx, "已設置使魔競技場位置，戰鬥服務啟動！（目前僅允許一座競技場）");
+            LocalizationService.HandleReply(ctx, "Familiar arena position set, battle service started! (only one arena currently allowed)");
         }
         else
         {
             FamiliarBattleCoords.Clear();
             FamiliarBattleCoords.Add(location);
 
-            LocalizationService.HandleReply(ctx, "使魔競技場位置已更換！（目前僅允許一座競技場）");
+            LocalizationService.HandleReply(ctx, "Familiar arena position changed! (only one arena currently allowed)");
         }
     }
 }

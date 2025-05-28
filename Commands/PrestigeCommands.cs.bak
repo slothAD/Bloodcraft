@@ -31,13 +31,13 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         if (!TryParsePrestigeType(prestigeType, out var parsedPrestigeType))
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige type, use <color=white>'.prestige l'</color> to see options.");
             return;
         }
 
@@ -50,7 +50,7 @@ internal static class PrestigeCommands
             {
                 if (steamId.TryGetPlayerExperience(out var expData) && expData.Key < ConfigService.MaxLevel)
                 {
-                    LocalizationService.HandleReply(ctx, "你必須先達到最高等級，方可再次進行 <color=#90EE90>Exo</color> 進階。");
+                    LocalizationService.HandleReply(ctx, "You must reach max level before <color=#90EE90>Exo</color> prestiging again.");
                     return;
                 }
                 else if (prestigeData[PrestigeType.Exo] >= EXO_PRESTIGES)
@@ -97,13 +97,13 @@ internal static class PrestigeCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "你必須先完成 <color=#90EE90>經驗</color> 進階並達到滿等，方可進行 <color=#90EE90>Exo</color> 進階。");
+                LocalizationService.HandleReply(ctx, "You must reach the maximum level in <color=#90EE90>Experience</color> prestige before <color=#90EE90>Exo</color> prestiging.");
                 return;
             }
         }
         else if (!ConfigService.ExoPrestiging && parsedPrestigeType.Equals(PrestigeType.Exo))
         {
-            LocalizationService.HandleReply(ctx, "<color=#90EE90>Exo</color> 進階尚未啟用。");
+            LocalizationService.HandleReply(ctx, "<color=#90EE90>Exo</color> prestiging is not enabled.");
             return;
         }
 
@@ -111,7 +111,7 @@ internal static class PrestigeCommands
 
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
@@ -132,13 +132,13 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         if (!TryParsePrestigeType(prestigeType, out var parsedPrestigeType))
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
@@ -190,14 +190,14 @@ internal static class PrestigeCommands
         }
         else if (parsedPrestigeType == PrestigeType.Exo)
         {
-            LocalizationService.HandleReply(ctx, "你尚未在 <color=#90EE90>Exo</color> 中進行進階。");
+            LocalizationService.HandleReply(ctx, "You have not prestiged in <color=#90EE90>Exo</color> yet.");
             return;
         }
 
         IPrestige handler = PrestigeFactory.GetPrestige(parsedPrestigeType);
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
@@ -218,20 +218,20 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         if (!TryParsePrestigeType(prestigeType, out var parsedPrestigeType))
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -271,7 +271,7 @@ internal static class PrestigeCommands
 
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
@@ -315,26 +315,26 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         if (!TryParsePrestigeType(prestigeType, out var parsedPrestigeType))
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
         if (!ConfigService.ExoPrestiging && parsedPrestigeType == PrestigeType.Exo)
         {
-            LocalizationService.HandleReply(ctx, "Exo 進階尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Exo prestiging is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家…");
+            ctx.Reply($"Couldn't find player...");
             return;
         }
 
@@ -372,7 +372,7 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
@@ -384,7 +384,7 @@ internal static class PrestigeCommands
             Entity character = ctx.Event.SenderCharacterEntity;
             ApplyPrestigeBuffs(character, prestigeLevel);
 
-            LocalizationService.HandleReply(ctx, "進階增益已套用！（若原本未啟用）");
+            LocalizationService.HandleReply(ctx, "Prestige buffs applied! (if they were missing)");
         }
         else
         {
@@ -397,7 +397,7 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
@@ -419,25 +419,25 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         if (!ConfigService.PrestigeLeaderboard)
         {
-            LocalizationService.HandleReply(ctx, "排行榜尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Leaderboards are not enabled.");
             return;
         }
 
         if (!TryParsePrestigeType(prestigeType, out var parsedPrestigeType))
         {
-            LocalizationService.HandleReply(ctx, "無效的進階類型，請使用 <color=white>'.prestige l'</color> 查看可用選項。");
+            LocalizationService.HandleReply(ctx, "Invalid prestige, use <color=white>'.prestige l'</color> to see valid options.");
             return;
         }
 
         if (!ConfigService.ExoPrestiging && parsedPrestigeType == PrestigeType.Exo)
         {
-            LocalizationService.HandleReply(ctx, "Exo 進階尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Exo prestiging is not enabled.");
             return;
         }
 
@@ -482,7 +482,7 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.ExoPrestiging)
         {
-            ctx.Reply("Exo 進階尚未啟用。");
+            ctx.Reply("Exo prestiging is not enabled.");
             return;
         }
 
@@ -492,7 +492,7 @@ internal static class PrestigeCommands
         {
             if (!Progression.ConsumedMegara(ctx.Event.SenderUserEntity) && !Progression.ConsumedDracula(ctx.Event.SenderUserEntity))
             {
-                ctx.Reply("你必須吞噬至少一個太初精華……");
+                ctx.Reply("You must consume at least one primordial essence...");
                 return;
             }
 
@@ -501,7 +501,7 @@ internal static class PrestigeCommands
         }
         else
         {
-            ctx.Reply("你還未獲得資格……");
+            ctx.Reply("You are not yet worthy...");
         }
     }
 
@@ -510,14 +510,14 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.ExoPrestiging)
         {
-            ctx.Reply("Exo 進階尚未啟用。");
+            ctx.Reply("Exo prestiging is not enabled.");
             return;
         }
 
         if (!Enum.TryParse<ShapeshiftType>(shapeshift, ignoreCase: true, out var form))
         {
             var shapeshifts = string.Join(", ", Enum.GetNames(typeof(ShapeshiftType)).Select(name => $"<color=white>{name}</color>"));
-            ctx.Reply($"無效的變形形態！可用選項：{shapeshifts}");
+            ctx.Reply($"Invalid shapeshift! Valid options: {shapeshifts}");
             return;
         }
 
@@ -527,22 +527,22 @@ internal static class PrestigeCommands
         {
             if (form.Equals(ShapeshiftType.EvolvedVampire) && !Progression.ConsumedDracula(ctx.Event.SenderUserEntity))
             {
-                ctx.Reply("你必須先吞噬德古拉的精華，方能化身其形……");
+                ctx.Reply("You must consume Dracula's essence before manifesting his form...");
                 return;
             }
 
             if (form.Equals(ShapeshiftType.CorruptedSerpent) && !Progression.ConsumedMegara(ctx.Event.SenderUserEntity))
             {
-                ctx.Reply("你必須先吞噬梅伽拉的精華，方能化身其形……");
+                ctx.Reply("You must consume Megara's essence before manifesting her form...");
                 return;
             }
 
             steamId.SetPlayerShapeshift(form);
-            ctx.Reply($"目前的 Exo 形態：<color=white>{form}</color>");
+            ctx.Reply($"Current Exoform: <color=white>{form}</color>");
         }
         else
         {
-            ctx.Reply("你還未獲得資格……");
+            ctx.Reply("You are not yet worthy...");
         }
     }
 
@@ -551,14 +551,14 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家…");
+            ctx.Reply($"Couldn't find player...");
             return;
         }
 
@@ -567,14 +567,14 @@ internal static class PrestigeCommands
             DataService.PlayerDictionaries._ignorePrestigeLeaderboard.Add(playerInfo.User.PlatformId);
             DataService.PlayerPersistence.SaveIgnoredPrestigeLeaderboard();
 
-            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> 已被加入忽略進階排行榜名單！");
+            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> added to the ignore prestige leaderboard list!");
         }
         else if (DataService.PlayerDictionaries._ignorePrestigeLeaderboard.Contains(playerInfo.User.PlatformId))
         {
             DataService.PlayerDictionaries._ignorePrestigeLeaderboard.Remove(playerInfo.User.PlatformId);
             DataService.PlayerPersistence.SaveIgnoredPrestigeLeaderboard();
 
-            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> 已從忽略進階排行榜名單中移除！");
+            ctx.Reply($"<color=green>{playerInfo.User.CharacterName.Value}</color> removed from the ignore prestige leaderboard list!");
         }
     }
 
@@ -583,7 +583,7 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 
@@ -593,7 +593,7 @@ internal static class PrestigeCommands
         TogglePlayerBool(steamId, SHROUD_KEY);
         if (GetPlayerBool(steamId, SHROUD_KEY))
         {
-            LocalizationService.HandleReply(ctx, "永久迷霧 <color=green>已啟用</color>！");
+            LocalizationService.HandleReply(ctx, "Permashroud <color=green>enabled</color>!");
 
             if (UpdateBuffsBufferDestroyPatch.PrestigeBuffs.Contains(_shroudBuff) && !playerCharacter.HasBuff(_shroudBuff)
                 && steamId.TryGetPlayerPrestiges(out var prestigeData) && prestigeData.TryGetValue(PrestigeType.Experience, out var experiencePrestiges) && experiencePrestiges > UpdateBuffsBufferDestroyPatch.PrestigeBuffs.IndexOf(_shroudBuff))
@@ -603,7 +603,7 @@ internal static class PrestigeCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "永久迷霧 <color=red>已停用</color>！");
+            LocalizationService.HandleReply(ctx, "Permashroud <color=red>disabled</color>!");
             Equipment equipment = playerCharacter.Read<Equipment>();
 
             if (!equipment.IsEquipped(_shroudCloak, out var _) && playerCharacter.HasBuff(_shroudBuff))
@@ -618,7 +618,7 @@ internal static class PrestigeCommands
     {
         if (!ConfigService.PrestigeSystem)
         {
-            LocalizationService.HandleReply(ctx, "進階系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Prestiging is not enabled.");
             return;
         }
 

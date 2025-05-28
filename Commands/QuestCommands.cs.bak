@@ -23,7 +23,7 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
@@ -38,7 +38,7 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
@@ -55,7 +55,7 @@ internal static class QuestCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "無效的任務類型。（daily/weekly 或 d/w）");
+                LocalizationService.HandleReply(ctx, "Invalid quest type. (daily/weekly or d/w)");
                 return;
             }
         }
@@ -67,7 +67,7 @@ internal static class QuestCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你目前沒有任何任務，請稍後再來查看。");
+            LocalizationService.HandleReply(ctx, "You don't have any quests yet, check back soon.");
         }
     }
 
@@ -76,7 +76,7 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
@@ -93,14 +93,14 @@ internal static class QuestCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "無效的任務類型。（daily/weekly 或 d/w）");
+                LocalizationService.HandleReply(ctx, "Invalid quest type. (daily/weekly or d/w)");
                 return;
             }
         }
 
         if (QuestService._lastUpdate == default)
         {
-            LocalizationService.HandleReply(ctx, "目標快取尚未準備好，請稍後再試！");
+            LocalizationService.HandleReply(ctx, "Target cache isn't ready yet, check back shortly!");
             return;
         }
 
@@ -111,7 +111,7 @@ internal static class QuestCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "你目前沒有任何任務，請稍後再來查看！");
+            LocalizationService.HandleReply(ctx, "You don't have any quests yet, check back soon!");
         }
     }
 
@@ -120,14 +120,14 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -145,7 +145,7 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
@@ -161,7 +161,7 @@ internal static class QuestCommands
 
         if (!Enum.TryParse(questType, true, out QuestType type))
         {
-            LocalizationService.HandleReply(ctx, "無效的任務類型。（每日／每週）");
+            LocalizationService.HandleReply(ctx, "Invalid quest type. (Daily/Weekly)");
             return;
         }
 
@@ -170,7 +170,7 @@ internal static class QuestCommands
         {
             if (steamId.TryGetPlayerQuests(out var questData) && questData[QuestType.Daily].Objective.Complete && !ConfigService.InfiniteDailies)
             {
-                LocalizationService.HandleReply(ctx, "你今天已完成 <color=#00FFFF>每日任務</color>。請明天再來。");
+                LocalizationService.HandleReply(ctx, "You've already completed your <color=#00FFFF>Daily Quest</color> today. Check back tomorrow.");
                 return;
             }
             else if (!ConfigService.RerollDailyPrefab.Equals(0))
@@ -197,14 +197,14 @@ internal static class QuestCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "尚未設置每日重抽道具，或找不到玩家的每日任務資料。");
+                LocalizationService.HandleReply(ctx, "No daily reroll item configured or couldn't find daily quest entry for player.");
             }
         }
         else if (type.Equals(QuestType.Weekly))
         {
             if (steamId.TryGetPlayerQuests(out var questData) && questData[QuestType.Weekly].Objective.Complete)
             {
-                LocalizationService.HandleReply(ctx, "你已完成本週的 <color=#BF40BF>每週任務</color>，請下週再來。");
+                LocalizationService.HandleReply(ctx, "You've already completed your <color=#BF40BF>Weekly Quest</color>. Check back next week.");
                 return;
             }
             else if (!ConfigService.RerollWeeklyPrefab.Equals(0))
@@ -230,7 +230,7 @@ internal static class QuestCommands
             }
             else
             {
-                LocalizationService.HandleReply(ctx, "尚未設置每週重抽道具，或找不到玩家的每週任務資料。");
+                LocalizationService.HandleReply(ctx, "No weekly reroll item configured or couldn't find weekly quest entry for player.");
             }
         }
     }
@@ -240,14 +240,14 @@ internal static class QuestCommands
     {
         if (!ConfigService.QuestSystem)
         {
-            LocalizationService.HandleReply(ctx, "任務系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Quests are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply("找不到玩家…");
+            ctx.Reply("Couldn't find player...");
             return;
         }
 
@@ -256,7 +256,7 @@ internal static class QuestCommands
 
         if (!steamId.TryGetPlayerQuests(out var questData))
         {
-            ctx.Reply("該玩家目前沒有進行中的任務！");
+            ctx.Reply("Player has no active quests!");
             return;
         }
 
@@ -278,14 +278,14 @@ internal static class QuestCommands
 
         if (!questData.ContainsKey(questType))
         {
-            ctx.Reply($"該玩家沒有任何進行中的 {questType} 任務可完成。");
+            ctx.Reply($"Player does not have an active {questType} quest to complete.");
             return;
         }
 
         var quest = questData[questType];
         if (quest.Objective.Complete)
         {
-            ctx.Reply($"{playerInfo.User.CharacterName.Value} 的 {questType} 任務已經完成。");
+            ctx.Reply($"The {questType} quest is already complete for {playerInfo.User.CharacterName.Value}.");
             return;
         }
 
@@ -299,6 +299,6 @@ internal static class QuestCommands
 
         ProcessQuestProgress(questData, target, toAdd, user);
 
-        ctx.Reply($"已替 <color=green>{playerInfo.User.CharacterName.Value}</color> 完成 {Quests.QuestTypeColor[questType]} 任務！");
+        ctx.Reply($"Completed {Quests.QuestTypeColor[questType]} for <color=green>{playerInfo.User.CharacterName.Value}</color>!");
     }
 }

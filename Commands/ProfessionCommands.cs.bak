@@ -18,7 +18,7 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
@@ -33,7 +33,7 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
@@ -48,7 +48,7 @@ internal static class ProfessionCommands
         IProfession professionHandler = ProfessionFactory.GetProfession(professionType);
         if (professionHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的職業。");
+            LocalizationService.HandleReply(ctx, "Invalid profession.");
             return;
         }
 
@@ -69,14 +69,14 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -95,7 +95,7 @@ internal static class ProfessionCommands
         IProfession professionHandler = ProfessionFactory.GetProfession(professionType);
         if (professionHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的職業。");
+            LocalizationService.HandleReply(ctx, "Invalid profession.");
             return;
         }
 
@@ -112,7 +112,7 @@ internal static class ProfessionCommands
     {
         if (!ConfigService.ProfessionSystem)
         {
-            LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Professions are not enabled.");
             return;
         }
 

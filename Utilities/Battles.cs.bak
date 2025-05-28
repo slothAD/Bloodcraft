@@ -199,7 +199,7 @@ internal static class Battles
         }
         else
         {
-            LocalizationService.HandleReply(ctx, "戰鬥隊伍中沒有使魔！");
+            LocalizationService.HandleReply(ctx, "No familiars in battle group!");
             return;
         }
     }

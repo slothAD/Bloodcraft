@@ -29,7 +29,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血系傳承尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
@@ -43,7 +43,7 @@ internal static class BloodCommands
         }
         else if (!Enum.TryParse(blood, true, out bloodType))
         {
-            LocalizationService.HandleReply(ctx, "無效的血系，請使用 '.bl l' 查看選項。");
+            LocalizationService.HandleReply(ctx, "Invalid blood, use '.bl l' to see options.");
             return;
         }
 
@@ -52,7 +52,7 @@ internal static class BloodCommands
 
         if (handler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的血系傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
@@ -101,7 +101,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血系傳承尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
@@ -116,7 +116,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -197,7 +197,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -248,7 +248,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "傳承系統尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Legacies are not enabled.");
             return;
         }
 
@@ -260,7 +260,7 @@ internal static class BloodCommands
 
         if (bloodStatsWithCaps.Count == 0)
         {
-            LocalizationService.HandleReply(ctx, "目前無可用的血系屬性。");
+            LocalizationService.HandleReply(ctx, "No blood stats available at this time.");
         }
         else
         {
@@ -278,14 +278,14 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血系傳承尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
         PlayerInfo playerInfo = GetPlayerInfo(name);
         if (!playerInfo.UserEntity.Exists())
         {
-            ctx.Reply($"找不到玩家。");
+            ctx.Reply($"Couldn't find player.");
             return;
         }
 
@@ -298,14 +298,14 @@ internal static class BloodCommands
 
         if (!Enum.TryParse<BloodType>(blood, true, out var bloodType))
         {
-            LocalizationService.HandleReply(ctx, "無效的血系傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
         var BloodHandler = BloodLegacyFactory.GetBloodHandler(bloodType);
         if (BloodHandler == null)
         {
-            LocalizationService.HandleReply(ctx, "無效的血系傳承。");
+            LocalizationService.HandleReply(ctx, "Invalid blood legacy.");
             return;
         }
 
@@ -322,7 +322,7 @@ internal static class BloodCommands
     {
         if (!ConfigService.LegacySystem)
         {
-            LocalizationService.HandleReply(ctx, "血系傳承尚未啟用。");
+            LocalizationService.HandleReply(ctx, "Blood Legacies are not enabled.");
             return;
         }
 
