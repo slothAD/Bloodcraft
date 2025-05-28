@@ -604,7 +604,7 @@ internal static class FamiliarCommands
         ulong steamId = ctx.User.PlatformId;
         TogglePlayerBool(steamId, EMOTE_ACTIONS_KEY);
 
-        LocalizationService.HandleReply(ctx, $"Emote actions {(GetPlayerBool(steamId, EMOTE_ACTIONS_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}!");
+        LocalizationService.HandleReply(ctx, $"表情動作 {(GetPlayerBool(steamId, EMOTE_ACTIONS_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}!");
     }
 
     [Command(name: "emoteactions", shortHand: "actions", usage: ".fam actions", description: "Shows available emote actions.", adminOnly: false)]

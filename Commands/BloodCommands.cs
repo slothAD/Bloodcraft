@@ -108,7 +108,7 @@ internal static class BloodCommands
         var steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, BLOOD_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"Blood Legacy logging {(GetPlayerBool(steamId, BLOOD_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"血脈紀錄 {(GetPlayerBool(steamId, BLOOD_LOG_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "choosestat", shortHand: "cst", adminOnly: false, usage: ".bl cst [BloodOrStat] [BloodStat]", description: "Choose a bonus stat to enhance for your blood legacy.")]

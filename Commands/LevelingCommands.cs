@@ -24,7 +24,7 @@ internal static class LevelingCommands
         var SteamID = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(SteamID, EXPERIENCE_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"Level logging {(GetPlayerBool(SteamID, EXPERIENCE_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"等級紀錄 {(GetPlayerBool(SteamID, EXPERIENCE_LOG_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "get", adminOnly: false, usage: ".lvl get", description: "Display current leveling progress.")]

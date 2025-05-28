@@ -25,7 +25,7 @@ internal static class ProfessionCommands
         ulong steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, PROFESSION_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"Profession logging is now {(GetPlayerBool(steamId, PROFESSION_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"職業紀錄現在為 {(GetPlayerBool(steamId, PROFESSION_LOG_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "get", adminOnly: false, usage: ".prof get [Profession]", description: "Display your current profession progress.")]

@@ -30,7 +30,7 @@ internal static class QuestCommands
         var steamId = ctx.Event.User.PlatformId;
 
         TogglePlayerBool(steamId, QUEST_LOG_KEY);
-        LocalizationService.HandleReply(ctx, $"Quest logging is now {(GetPlayerBool(steamId, QUEST_LOG_KEY) ? "<color=green>enabled</color>" : "<color=red>disabled</color>")}.");
+        LocalizationService.HandleReply(ctx, $"任務紀錄現在為 {(GetPlayerBool(steamId, QUEST_LOG_KEY) ? "<color=green>已啟用</color>" : "<color=red>已停用</color>")}.");
     }
 
     [Command(name: "progress", shortHand: "p", adminOnly: false, usage: ".quest p [QuestType]", description: "Display your current quest progress.")]
@@ -272,7 +272,7 @@ internal static class QuestCommands
 
         if (!Enum.TryParse<QuestType>(questTypeName, true, out var questType))
         {
-            ctx.Reply($"Invalid quest type '{questTypeName}'. Valid values are: {string.Join(", ", Enum.GetNames(typeof(QuestType)))}");
+            ctx.Reply($"無效的任務類型 '{questTypeName}'。有效類型為：{string.Join(", ", Enum.GetNames(typeof(QuestType)))}");
             return;
         }
 

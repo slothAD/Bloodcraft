@@ -790,7 +790,7 @@ internal static class FamiliarBindingSystem
                 }
             }
             
-            string message = isShiny ? $"<color=green>{familiarId.GetLocalizedName()}</color>{colorCode}*</color> <color=#00FFFF>bound</color>!" : $"<color=green>{familiarId.GetLocalizedName()}</color> <color=#00FFFF>bound</color>!";
+            string message = isShiny ? $"<color=green>{familiarId.GetLocalizedName()}</color>{colorCode}*</color> <color=#00FFFF>已綁定</color>！" : $"<color=green>{familiarId.GetLocalizedName()}</color> <color=#00FFFF>已綁定</color>！";
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }
     }
