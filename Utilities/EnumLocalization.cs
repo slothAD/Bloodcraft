@@ -2,7 +2,6 @@
 using Bloodcraft.Systems.Expertise;
 using Bloodcraft.Systems.Legacies;
 using Bloodcraft.Systems.Familiars;
-using static Bloodcraft.Systems.Legacies.BloodManager;
 using WeaponStatType = Bloodcraft.Systems.Expertise.WeaponManager.WeaponStats.WeaponStatType;
 using FamiliarStatType = Bloodcraft.Systems.Familiars.FamiliarBindingSystem.FamiliarStatType;
 namespace Bloodcraft.Utilities.EnumLocalization;
