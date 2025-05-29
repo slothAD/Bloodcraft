@@ -11,6 +11,8 @@ using UnityEngine;
 using static Bloodcraft.Patches.DeathEventListenerSystemPatch;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 using WeaponType = Bloodcraft.Interfaces.WeaponType;
 
 namespace Bloodcraft.Systems.Expertise;
@@ -341,7 +343,7 @@ internal static class WeaponSystem
         if (newLevel <= _maxExpertiseLevel)
         {
             LocalizationService.HandleServerReply(EntityManager, user,
-                $"<color=#c0c0c0>{weaponType}</color> improved to [<color=white>{newLevel}</color>]!");
+                $"<color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> improved to [<color=white>{newLevel}</color>]!");
         }
 
         if (GetPlayerBool(steamID, REMINDERS_KEY))
@@ -355,7 +357,7 @@ internal static class WeaponSystem
                     string bonusString = choicesLeft > 1 ? "bonuses" : "bonus";
 
                     LocalizationService.HandleServerReply(EntityManager, user,
-                        $"{choicesLeft} <color=white>stat</color> <color=#00FFFF>{bonusString}</color> available for <color=#c0c0c0>{weaponType.ToString().ToLower()}</color>; use '<color=white>.wep cst {weaponType} [Stat]</color>' to choose and '<color=white>.wep lst'</color> to view expertise stat options. (toggle reminders with <color=white>'.misc remindme'</color>)");
+                        $"{choicesLeft} <color=white>stat</color> <color=#00FFFF>{bonusString}</color> available for <color=#c0c0c0>{weaponType.ToString().ToLower()}</color>; use '<color=white>.wep cst {GetWeaponTypeZh(weaponType)} [Stat]</color>' to choose and '<color=white>.wep lst'</color> to view expertise stat options. (toggle reminders with <color=white>'.misc remindme'</color>)");
                 }
             }
         }
