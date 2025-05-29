@@ -5,7 +5,7 @@ using VampireCommandFramework;
 using static Bloodcraft.Services.PlayerService;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
-
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 
 namespace Bloodcraft.Commands;
 
