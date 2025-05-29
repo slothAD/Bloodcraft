@@ -117,14 +117,14 @@ internal static class ProfessionCommands
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".prof l", description: "Lists professions available.")]
     public static void ListProfessionsCommand(ChatCommandContext ctx)
     {
-        var zhNames = Enum.GetValues<ProfessionType>()
-            .Where(p => p != ProfessionType.None)
-            .Select(p => GetProfessionZh(p));
         if (!ConfigService.ProfessionSystem)
         {
             LocalizationService.HandleReply(ctx, "職業系統尚未啟用。");
             return;
         }
+        var zhNames = Enum.GetValues<ProfessionType>()
+        .Where(p => p != ProfessionType.None)
+        .Select(p => GetProfessionZh(p));
         LocalizationService.HandleReply(ctx, $"可選擇的職業：{ProfessionFactory.GetProfessionNames()}");
     }
 }
