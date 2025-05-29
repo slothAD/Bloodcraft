@@ -5,6 +5,7 @@ using VampireCommandFramework;
 using static Bloodcraft.Services.PlayerService;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
 using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 
 namespace Bloodcraft.Commands;
@@ -39,7 +40,7 @@ internal static class ProfessionCommands
         }
 
         if (!Enum.TryParse(profession, true, out ProfessionType professionType) &&
-            !EnumLocalization.ZhToProfessionType.TryGetValue(profession, out professionType))
+            !ZhToProfessionType.TryGetValue(profession, out professionType))
         {
             LocalizationService.HandleReply(ctx, $"有效職業：{ProfessionFactory.GetProfessionNames()}");
             return;
@@ -58,11 +59,11 @@ internal static class ProfessionCommands
         if (data.Key > 0)
         {
             int progress = (int)(data.Value - ConvertLevelToXp(data.Key));
-            LocalizationService.HandleReply(ctx, $"你目前在 <color=#c0c0c0>{GetProfessionZh(professionHandler.GetProfessionType())}</color> 的等級為 [<color=white>{data.Key}</color>]，擁有 <color=yellow>{progress}</color> 點<color=#FFC0CB>熟練度</color>（<color=white>{ProfessionSystem.GetLevelProgress(steamId, professionHandler)}%</color>）");
+            LocalizationService.HandleReply(ctx, $"你目前在 <color=#c0c0c0>{GetProfessionZh(professionType)}</color> 的等級為 [<color=white>{data.Key}</color>]，擁有 <color=yellow>{progress}</color> 點<color=#FFC0CB>熟練度</color>（<color=white>{ProfessionSystem.GetLevelProgress(steamId, professionHandler)}%</color>）");
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"尚未在 <color=#c0c0c0>{GetProfessionZh(professionHandler.GetProfessionType())}</color> 開始進度！");
+            LocalizationService.HandleReply(ctx, $"尚未在 <color=#c0c0c0>{GetProfessionZh(professionType)}</color> 開始進度！");
         }
     }
 
@@ -89,7 +90,7 @@ internal static class ProfessionCommands
         }
 
         if (!Enum.TryParse(profession, true, out ProfessionType professionType) &&
-            !EnumLocalization.ZhToProfessionType.TryGetValue(profession, out professionType))
+            !ZhToProfessionType.TryGetValue(profession, out professionType))
         {
             LocalizationService.HandleReply(ctx, $"有效職業：{ProfessionFactory.GetProfessionNames()}");
             return;
@@ -107,7 +108,7 @@ internal static class ProfessionCommands
         float xp = ConvertLevelToXp(level);
         professionHandler.SetProfessionData(steamId, new KeyValuePair<int, float>(level, xp));
 
-        LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{GetProfessionZh(professionHandler.GetProfessionType())}</color> 等級設為 [<color=white>{level}</color>]，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>");
+        LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{GetProfessionZh(professionType)}</color> 等級設為 [<color=white>{level}</color>]，目標玩家：<color=green>{playerInfo.User.CharacterName.Value}</color>");
     }
 
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".prof l", description: "Lists professions available.")]
