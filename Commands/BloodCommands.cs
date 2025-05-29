@@ -51,7 +51,7 @@ internal static class BloodCommands
         }
 
         ulong steamId = ctx.Event.User.PlatformId;
-        IBloodLegacy handler = BloodLegacyFactory.GetBloodHandler(bloodType);
+        IBloodLegacy handler = BloodLegacyFactory.GetbloodHandler(bloodType);
 
         if (handler == null)
         {
@@ -305,8 +305,8 @@ internal static class BloodCommands
             return;
         }
 
-        var BloodHandler = BloodLegacyFactory.GetBloodHandler(bloodType);
-        if (BloodHandler == null)
+        var bloodHandler = BloodLegacyFactory.GetbloodHandler(bloodType);
+        if (bloodHandler == null)
         {
             LocalizationService.HandleReply(ctx, "無效的血系傳承。");
             return;
@@ -314,7 +314,7 @@ internal static class BloodCommands
 
         ulong steamId = foundUser.PlatformId;
         var xpData = new KeyValuePair<int, float>(level, ConvertLevelToXp(level));
-        BloodHandler.SetLegacyData(steamId, xpData);
+        bloodHandler.SetLegacyData(steamId, xpData);
 
         Buffs.RefreshStats(playerInfo.CharEntity);
         LocalizationService.HandleReply(ctx, $"<color=red>{GetBloodTypeZh(bloodHandler.GetBloodType())}</color> 傳承已設為 [<color=white>{level}</color>]，目標：<color=green>{foundUser.CharacterName}</color>");
