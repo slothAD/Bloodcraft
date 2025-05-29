@@ -42,6 +42,9 @@ internal static class ProfessionCommands
         if (!Enum.TryParse(profession, true, out ProfessionType professionType) &&
             !ZhToProfessionType.TryGetValue(profession, out professionType))
         {
+            var zhNames = Enum.GetValues<ProfessionType>()
+                .Where(p => p != ProfessionType.None)
+                .Select(p => GetProfessionZh(p));
             LocalizationService.HandleReply(ctx, $"有效職業：{ProfessionFactory.GetProfessionNames()}");
             return;
         }
