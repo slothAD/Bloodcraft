@@ -15,9 +15,12 @@ using static Bloodcraft.Systems.Expertise.WeaponSystem;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
 using static Bloodcraft.Utilities.Progression.ModifyUnitStatBuffSettings;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 using static VCF.Core.Basics.RoleCommands;
 using User = ProjectM.Network.User;
 using WeaponType = Bloodcraft.Interfaces.WeaponType;
+
 
 namespace Bloodcraft.Commands;
 
@@ -56,7 +59,7 @@ internal static class WeaponCommands
 
         if (ExpertiseData.Key > 0 || ExpertiseData.Value > 0)
         {
-            LocalizationService.HandleReply(ctx, $"你在 <color=#c0c0c0>{weaponType}</color> 的武器專精為 [<color=white>{ExpertiseData.Key}</color>][<color=#90EE90>{prestigeLevel}</color>]，擁有 <color=yellow>{progress}</color> 點<color=#FFC0CB>專精值</color>（<color=white>{GetLevelProgress(steamId, handler)}%</color>）！");
+            LocalizationService.HandleReply(ctx, $"你在 <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> 的武器專精為 [<color=white>{ExpertiseData.Key}</color>][<color=#90EE90>{prestigeLevel}</color>]，擁有 <color=yellow>{progress}</color> 點<color=#FFC0CB>專精值</color>（<color=white>{GetLevelProgress(steamId, handler)}%</color>）！");
 
             if (steamId.TryGetPlayerWeaponStats(out var weaponTypeStats) && weaponTypeStats.TryGetValue(weaponType, out var weaponStatTypes))
             {
@@ -73,8 +76,8 @@ internal static class WeaponCommands
                 for (int i = 0; i < weaponExpertiseStats.Count; i += 6)
                 {
                     var batch = weaponExpertiseStats.Skip(i).Take(6);
-                    string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{stat.Key}</color>: <color=white>{stat.Value}</color>"));
-                    LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{weaponType}</color> 屬性：{bonuses}");
+                    string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{GetWeaponStatZh(stat.Key)}</color>: <color=white>{stat.Value}</color>"));
+                    LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> 屬性：{bonuses}");
                 }
             }
             else
@@ -84,7 +87,7 @@ internal static class WeaponCommands
         }
         else
         {
-            LocalizationService.HandleReply(ctx, $"你尚未獲得任何 <color=#c0c0c0>{weaponType}</color> 專精經驗！");
+            LocalizationService.HandleReply(ctx, $"你尚未獲得任何 <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> 專精經驗！");
         }
     }
 
@@ -201,7 +204,7 @@ internal static class WeaponCommands
                     ResetStats(steamId, weaponType);
                     Buffs.RefreshStats(playerCharacter);
 
-                    LocalizationService.HandleReply(ctx, $"你的 <color=#c0c0c0>{weaponType}</color> 武器屬性已重置！");
+                    LocalizationService.HandleReply(ctx, $"你的 <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> 武器屬性已重置！");
                     return;
                 }
             }
@@ -216,7 +219,7 @@ internal static class WeaponCommands
         ResetStats(steamId, weaponType);
         Buffs.RefreshStats(playerCharacter);
 
-        LocalizationService.HandleReply(ctx, $"你的 <color=#c0c0c0>{weaponType}</color> 武器屬性已重置！");
+        LocalizationService.HandleReply(ctx, $"你的 <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> 武器屬性已重置！");
     }
 
     [Command(name: "set", adminOnly: true, usage: ".wep set [Name] [Weapon] [Level]", description: "Sets player weapon expertise level.")]
@@ -242,7 +245,8 @@ internal static class WeaponCommands
             return;
         }
 
-        if (!Enum.TryParse<WeaponType>(weapon, true, out var weaponType))
+        if (!Enum.TryParse(weapon, true, out WeaponType weaponType) &&
+            !ZhToWeaponType.TryGetValue(weapon, out weaponType))
         {
             LocalizationService.HandleReply(ctx, $"等級必須介於 0 到 {ConfigService.MaxExpertiseLevel} 之間。");
             return;
@@ -263,7 +267,7 @@ internal static class WeaponCommands
             setFunc(steamId, xpData);
             Buffs.RefreshStats(playerInfo.CharEntity);
 
-            LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{expertiseHandler.GetWeaponType()}</color> 熟練度已設為 [<color=white>{level}</color>]，目標：<color=green>{playerInfo.User.CharacterName.Value}</color>");
+            LocalizationService.HandleReply(ctx, $"<color=#c0c0c0>{GetWeaponTypeZh(expertiseHandler.GetWeaponType())}</color> 熟練度已設為 [<color=white>{level}</color>]，目標：<color=green>{playerInfo.User.CharacterName.Value}</color>");
         }
         else
         {
@@ -283,7 +287,7 @@ internal static class WeaponCommands
         var weaponStatsWithCaps = Enum.GetValues(typeof(WeaponStats.WeaponStatType))
             .Cast<WeaponStats.WeaponStatType>()
             .Select((stat, index) =>
-                $"<color=yellow>{index + 1}</color>| <color=#00FFFF>{stat}</color>: <color=white>{Misc.FormatWeaponStatValue(stat, WeaponStats.WeaponStatBaseCaps[stat])}</color>")
+                $"<color=yellow>{index + 1}</color>| <color=#00FFFF>{GetWeaponStatZh(stat)}</color>: <color=white>{Misc.FormatWeaponStatValue(stat, WeaponStats.WeaponStatBaseCaps[stat])}</color>")
             .ToList();
 
         if (weaponStatsWithCaps.Count == 0)
