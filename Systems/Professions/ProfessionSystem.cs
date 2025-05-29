@@ -128,7 +128,6 @@ internal static class ProfessionSystem
 
         if (handler != null)
         {
-            string professionName = ResolveProfessionZh(handler);
             if (professionName.Contains("Woodcutting"))
             {
                 professionValue *= ProfessionMappings.GetWoodcuttingModifier(itemPrefabGuid);
@@ -150,7 +149,6 @@ internal static class ProfessionSystem
         if (!PrefabCollectionSystem._PrefabGuidToEntityMap.TryGetValue(prefabGuid, out Entity prefabEntity)) return;
 
         int level = GetLevel(steamId, handler);
-        string professionName = ResolveProfessionZh(handler);
         bool professionLogging = GetPlayerBool(steamId, PROFESSION_LOG_KEY);
         bool sctYield = GetPlayerBool(steamId, SCT_YIELD_KEY);
 
@@ -324,14 +322,13 @@ internal static class ProfessionSystem
     {
         Entity userEntity = playerCharacter.GetUserEntity();
         User user = userEntity.GetUser();
-
-        string professionName = ResolveProfessionZh(handler);
-
         if (leveledUp)
         {
+            
             int newLevel = ConvertXpToLevel(handler.GetProfessionData(steamID).Value);
             if (newLevel < MAX_PROFESSION_LEVEL)
             {
+                string professionName = ResolveProfessionZh(handler);
                  LocalizationService.HandleServerReply(EntityManager, user, $"{professionName} 等級提升至 [<color=white>{newLevel}</color>]");
             }
         }
