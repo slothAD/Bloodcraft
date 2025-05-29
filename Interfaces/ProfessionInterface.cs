@@ -91,7 +91,7 @@ internal abstract class ProfessionBase : IProfession
 }
 internal class EnchantingProfession : ProfessionBase
 {
-    public override ProfessionType GetProfessionType() => ProfessionType.Enchanting;
+    public ProfessionType GetProfessionType() => ProfessionType.Enchanting;
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerEnchanting(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -115,7 +115,7 @@ internal class EnchantingProfession : ProfessionBase
 }
 internal class AlchemyProfession : ProfessionBase
 {
-    public override ProfessionType GetProfessionType() => ProfessionType.Alchemy;
+    public ProfessionType GetProfessionType() => ProfessionType.Alchemy;
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerAlchemy(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -139,7 +139,7 @@ internal class AlchemyProfession : ProfessionBase
 }
 internal class HarvestingProfession : ProfessionBase
 {
-    public override ProfessionType GetProfessionType() => ProfessionType.Harvesting;
+    public ProfessionType GetProfessionType() => ProfessionType.Harvesting;
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerHarvesting(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -163,7 +163,7 @@ internal class HarvestingProfession : ProfessionBase
 }
 internal class BlacksmithingProfession : ProfessionBase
 {
-    public override ProfessionType GetProfessionType() => ProfessionType.Blacksmithing;    
+    public ProfessionType GetProfessionType() => ProfessionType.Blacksmithing;    
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerBlacksmithing(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -187,7 +187,7 @@ internal class BlacksmithingProfession : ProfessionBase
 }
 internal class TailoringProfession : ProfessionBase
 {   
-    public override ProfessionType GetProfessionType() => ProfessionType.Tailoring;  
+    public ProfessionType GetProfessionType() => ProfessionType.Tailoring;  
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerTailoring(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -211,7 +211,7 @@ internal class TailoringProfession : ProfessionBase
 }
 internal class WoodcuttingProfession : ProfessionBase
 {   
-    public override ProfessionType GetProfessionType() => ProfessionType.Woodcutting;  
+    public ProfessionType GetProfessionType() => ProfessionType.Woodcutting;  
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerWoodcutting(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -235,7 +235,7 @@ internal class WoodcuttingProfession : ProfessionBase
 }
 internal class MiningProfession : ProfessionBase
 {
-    public override ProfessionType GetProfessionType() => ProfessionType.Mining;  
+    public ProfessionType GetProfessionType() => ProfessionType.Mining;  
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerMining(out var data) ? data : new KeyValuePair<int, float>(0, 0);
@@ -259,7 +259,7 @@ internal class MiningProfession : ProfessionBase
 }
 internal class FishingProfession : ProfessionBase
 {   
-    public override ProfessionType GetProfessionType() => ProfessionType.Fishing;
+    public ProfessionType GetProfessionType() => ProfessionType.Fishing;
     public override KeyValuePair<int, float> GetProfessionData(ulong steamId)
     {
         return steamId.TryGetPlayerFishing(out var data) ? data : new KeyValuePair<int, float>(0, 0);
