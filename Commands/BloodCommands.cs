@@ -317,7 +317,7 @@ internal static class BloodCommands
         BloodHandler.SetLegacyData(steamId, xpData);
 
         Buffs.RefreshStats(playerInfo.CharEntity);
-        LocalizationService.HandleReply(ctx, $"<color=red>{GetBloodTypeZh(Bloodhandler.GetBloodType())}</color> 傳承已設為 [<color=white>{level}</color>]，目標：<color=green>{foundUser.CharacterName}</color>");
+        LocalizationService.HandleReply(ctx, $"<color=red>{GetBloodTypeZh(bloodHandler.GetBloodType())}</color> 傳承已設為 [<color=white>{level}</color>]，目標：<color=green>{foundUser.CharacterName}</color>");
     }
 
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".bl l", description: "Lists blood legacies available.")]

@@ -27,6 +27,9 @@ using static Bloodcraft.Utilities.Familiars;
 using static Bloodcraft.Utilities.Familiars.ActiveFamiliarManager;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
+
 
 namespace Bloodcraft.Commands;
 
