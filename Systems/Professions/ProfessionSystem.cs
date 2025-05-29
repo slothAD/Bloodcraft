@@ -11,6 +11,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 using Random = System.Random;
 using User = ProjectM.Network.User;
 
@@ -126,10 +128,11 @@ internal static class ProfessionSystem
 
         if (handler != null)
         {
-            string professionName = handler.GetProfessionName();
-            if (Enum.TryParse(professionName, out ProfessionType type))
+            string rawName = handler.GetProfessionName();
+            string professionName = rawName;
+            if (Enum.TryParse(rawName, out ProfessionType parsedType))
             {
-                professionName = GetProfessionZh(type);
+                professionName = GetProfessionZh(parsedType);
             }
             if (professionName.Contains("Woodcutting"))
             {
@@ -152,10 +155,11 @@ internal static class ProfessionSystem
         if (!PrefabCollectionSystem._PrefabGuidToEntityMap.TryGetValue(prefabGuid, out Entity prefabEntity)) return;
 
         int level = GetLevel(steamId, handler);
-        string professionName = handler.GetProfessionName();
-        if (Enum.TryParse(professionName, out ProfessionType type))
+        string rawName = handler.GetProfessionName();
+        string professionName = rawName;
+        if (Enum.TryParse(rawName, out ProfessionType parsedType))
         {
-            professionName = GetProfessionZh(type);
+            professionName = GetProfessionZh(parsedType);
         }
         bool professionLogging = GetPlayerBool(steamId, PROFESSION_LOG_KEY);
         bool sctYield = GetPlayerBool(steamId, SCT_YIELD_KEY);
@@ -331,10 +335,11 @@ internal static class ProfessionSystem
         Entity userEntity = playerCharacter.GetUserEntity();
         User user = userEntity.GetUser();
 
-        string professionName = handler.GetProfessionName();
-        if (Enum.TryParse(professionName, out ProfessionType type))
+        string rawName = handler.GetProfessionName();
+        string professionName = rawName;
+        if (Enum.TryParse(rawName, out ProfessionType parsedType))
         {
-            professionName = GetProfessionZh(type);
+            professionName = GetProfessionZh(parsedType);
         }
 
         if (leveledUp)
@@ -342,10 +347,11 @@ internal static class ProfessionSystem
             int newLevel = ConvertXpToLevel(handler.GetProfessionData(steamID).Value);
             if (newLevel < MAX_PROFESSION_LEVEL)
             {
-                string professionName = handler.GetProfessionName();
-                if (Enum.TryParse(professionName, out ProfessionType type))
+                string rawName = handler.GetProfessionName();
+                string professionName = rawName;
+                if (Enum.TryParse(rawName, out ProfessionType parsedType))
                 {
-                    professionName = GetProfessionZh(type);
+                    professionName = GetProfessionZh(parsedType);
                 }
                  LocalizationService.HandleServerReply(EntityManager, user, $"{professionName} 等級提升至 [<color=white>{newLevel}</color>]");
             }
