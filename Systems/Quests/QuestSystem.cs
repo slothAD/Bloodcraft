@@ -431,13 +431,13 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Daily] = (GenerateQuestObjective(goal, targets, QuestType.Daily), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#00FFFF>Daily Quest</color> has been refreshed!");
+                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#00FFFF>每日任務</color> 已刷新！");
 
                     goal = targetTypes.Last();
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Weekly] = (GenerateQuestObjective(goal, targets, QuestType.Weekly), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#BF40BF>Weekly Quest</color> has been refreshed!");
+                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#BF40BF>每週任務</color> 已刷新！");
                 }
                 else if (refreshDaily)
                 {
@@ -445,7 +445,7 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Daily] = (GenerateQuestObjective(goal, targets, QuestType.Daily), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#00FFFF>Daily Quest</color> has been refreshed!");
+                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#00FFFF>每日任務</color> 已刷新！");
                 }
                 else if (refreshWeekly)
                 {
@@ -453,7 +453,7 @@ internal static class QuestSystem
                     targets = [..GetGoalPrefabsForLevelEnumerable(goal, level)];
 
                     questData[QuestType.Weekly] = (GenerateQuestObjective(goal, targets, QuestType.Weekly), 0, now);
-                    LocalizationService.HandleServerReply(EntityManager, user, "Your <color=#BF40BF>Weekly Quest</color> has been refreshed!");
+                    LocalizationService.HandleServerReply(EntityManager, user, "你的 <color=#BF40BF>每週任務</color> 已刷新！");
                 }
 
                 steamId.SetPlayerQuests(questData);
@@ -633,13 +633,13 @@ internal static class QuestSystem
 
         if (ServerGameManager.TryAddInventoryItem(user.LocalCharacter._Entity, reward, quantity))
         {
-            string message = $"You've received <color=#ffd9eb>{reward.GetLocalizedName()}</color>x<color=white>{quantity}</color> for completing your {colorType}!";
+            string message = $"你完成了 {colorType}，獲得了 <color=#ffd9eb>{reward.GetLocalizedName()}</color>x<color=white>{quantity}</color>！";
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }
         else
         {
             InventoryUtilitiesServer.CreateDropItem(EntityManager, user.LocalCharacter._Entity, reward, quantity, new Entity());
-            string message = $"You've received <color=#ffd9eb>{reward.GetLocalizedName()}</color>x<color=white>{quantity}</color> for completing your {colorType}! It dropped on the ground because your inventory was full.";
+            string message = $"你完成了 {colorType}，獲得了 <color=#ffd9eb>{reward.GetLocalizedName()}</color>x<color=white>{quantity}</color>！ 由於你的背包已滿，獎勵已掉落在地上。";
             LocalizationService.HandleServerReply(EntityManager, user, message);
         }
     }

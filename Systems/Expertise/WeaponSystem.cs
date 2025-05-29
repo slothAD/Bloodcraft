@@ -329,7 +329,7 @@ internal static class WeaponSystem
         if (GetPlayerBool(steamId, WEAPON_LOG_KEY))
         {
             LocalizationService.HandleServerReply(EntityManager, user,
-                $"+<color=yellow>{gainedIntXP}</color> <color=#c0c0c0>{weaponType.ToString().ToLower()}</color> <color=#FFC0CB>expertise</color> (<color=white>{levelProgress}%</color>)");
+                $"+<color=yellow>{gainedIntXP}</color> <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color> <color=#FFC0CB>熟練度</color>（<color=white>{levelProgress}%</color>）");
         }
 
         if (GetPlayerBool(steamId, SCT_PLAYER_WEP_KEY))
@@ -357,7 +357,7 @@ internal static class WeaponSystem
                     string bonusString = choicesLeft > 1 ? "bonuses" : "bonus";
 
                     LocalizationService.HandleServerReply(EntityManager, user,
-                        $"{choicesLeft} <color=white>stat</color> <color=#00FFFF>{bonusString}</color> available for <color=#c0c0c0>{weaponType.ToString().ToLower()}</color>; use '<color=white>.wep cst {GetWeaponTypeZh(weaponType)} [Stat]</color>' to choose and '<color=white>.wep lst'</color> to view expertise stat options. (toggle reminders with <color=white>'.misc remindme'</color>)");
+                        $"你還有 <color=white>{choicesLeft}</color> 個 <color=#00FFFF>{(choicesLeft > 1 ? "屬性加成" : "屬性加成")}</color> 可選，適用於 <color=#c0c0c0>{GetWeaponTypeZh(weaponType)}</color>；使用 '<color=white>.wep cst {GetWeaponTypeZh(weaponType)} [屬性]</color>' 來選擇，使用 '<color=white>.wep lst</color>' 查看加成選項（可用 <color=white>'.misc remindme'</color> 開關提醒）");
                 }
             }
         }

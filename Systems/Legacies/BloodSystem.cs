@@ -292,7 +292,7 @@ internal static class BloodSystem
                     string bonusString = choicesLeft > 1 ? "bonuses" : "bonus";
 
                     LocalizationService.HandleServerReply(EntityManager, user,
-                        $"{choicesLeft} <color=white>stat</color> <color=#00FFFF>{bonusString}</color> available for <color=red>{bloodType.ToString().ToLower()}</color>; use '<color=white>.bl cst [Stat]</color>' to choose and '<color=white>.bl lst</color>' to see options. (toggle reminders with <color=white>'.misc remindme'</color>)");
+                        $"你還有 <color=white>{choicesLeft}</color> 個 <color=#00FFFF>{(choicesLeft > 1 ? "屬性加成" : "屬性加成")}</color> 可選，適用於 <color=red>{GetBloodTypeZh(bloodType)}</color>；使用 '<color=white>.bl cst [屬性]</color>' 來選擇，使用 '<color=white>.bl lst</color>' 查看選項。（可用 <color=white>.misc remindme</color> 開關提醒）");
                 }
             }
         }
