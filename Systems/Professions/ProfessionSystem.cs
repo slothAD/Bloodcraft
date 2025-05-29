@@ -128,12 +128,7 @@ internal static class ProfessionSystem
 
         if (handler != null)
         {
-            string rawName = handler.GetProfessionName();
-            string professionName = rawName;
-            if (Enum.TryParse(rawName, out ProfessionType parsedType))
-            {
-                professionName = GetProfessionZh(parsedType);
-            }
+            string professionName = ResolveProfessionZh(handler);
             if (professionName.Contains("Woodcutting"))
             {
                 professionValue *= ProfessionMappings.GetWoodcuttingModifier(itemPrefabGuid);
@@ -155,12 +150,7 @@ internal static class ProfessionSystem
         if (!PrefabCollectionSystem._PrefabGuidToEntityMap.TryGetValue(prefabGuid, out Entity prefabEntity)) return;
 
         int level = GetLevel(steamId, handler);
-        string rawName = handler.GetProfessionName();
-        string professionName = rawName;
-        if (Enum.TryParse(rawName, out ProfessionType parsedType))
-        {
-            professionName = GetProfessionZh(parsedType);
-        }
+        string professionName = ResolveProfessionZh(handler);
         bool professionLogging = GetPlayerBool(steamId, PROFESSION_LOG_KEY);
         bool sctYield = GetPlayerBool(steamId, SCT_YIELD_KEY);
 
@@ -335,24 +325,13 @@ internal static class ProfessionSystem
         Entity userEntity = playerCharacter.GetUserEntity();
         User user = userEntity.GetUser();
 
-        string rawName = handler.GetProfessionName();
-        string professionName = rawName;
-        if (Enum.TryParse(rawName, out ProfessionType parsedType))
-        {
-            professionName = GetProfessionZh(parsedType);
-        }
+        string professionName = ResolveProfessionZh(handler);
 
         if (leveledUp)
         {
             int newLevel = ConvertXpToLevel(handler.GetProfessionData(steamID).Value);
             if (newLevel < MAX_PROFESSION_LEVEL)
             {
-                string rawName = handler.GetProfessionName();
-                string professionName = rawName;
-                if (Enum.TryParse(rawName, out ProfessionType parsedType))
-                {
-                    professionName = GetProfessionZh(parsedType);
-                }
                  LocalizationService.HandleServerReply(EntityManager, user, $"{professionName} 等級提升至 [<color=white>{newLevel}</color>]");
             }
         }
@@ -412,10 +391,6 @@ internal static class ProfessionSystem
     }
     static void HandleExperienceAndBonusYield(User user, Entity userEntity, Entity playerCharacter, Entity target, PrefabGUID resource, string professionName, float bonusYield, bool professionLogging, bool sctYield, ref float delay)
     {
-        if (Enum.TryParse(professionName, out ProfessionType type))
-        {
-        professionName = GetProfessionZh(type);
-        }
         if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>{resource.GetLocalizedName()}</color>x<color=white>{bonusYield}</color> 來自 {professionName}");
         if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _bonusYieldColor, bonusYield, ref delay);
     }
@@ -443,19 +418,11 @@ internal static class ProfessionSystem
     {
         if (ServerGameManager.TryAddInventoryItem(playerCharacter, _goldOre, goldOre))
         {
-            if (Enum.TryParse(professionName, out ProfessionType type))
-                {
-                    professionName = GetProfessionZh(type);
-                }
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>金礦石</color>x<color=white>{goldOre}</color> 來自 {professionName}");
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _goldOreColor, goldOre, ref delay);
         }
         else
         {
-             if (Enum.TryParse(professionName, out ProfessionType type))
-                {
-                    professionName = GetProfessionZh(type);
-                }
             InventoryUtilitiesServer.CreateDropItem(EntityManager, playerCharacter, _goldOre, goldOre, new Entity());
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>金礦石</color>x<color=white>{goldOre}</color> 來自 {professionName}, 但因背包已滿，掉落在地上.");
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _goldOreColor, goldOre, ref delay);
@@ -485,21 +452,12 @@ internal static class ProfessionSystem
     {
         if (ServerGameManager.TryAddInventoryItem(playerCharacter, _radiantFibre, amount))
         {
-             if (Enum.TryParse(professionName, out ProfessionType type))
-             {
-              professionName = GetProfessionZh(type);
-             }
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>金礦石</color>x<color=white>{amount}</color> 來自 {professionName}");
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _radiantFiberColor, amount, ref delay);
         }
         else
         {
-            if (Enum.TryParse(professionName, out ProfessionType type))
-            {
-              professionName = GetProfessionZh(type);
-            }
             InventoryUtilitiesServer.CreateDropItem(EntityManager, playerCharacter, _radiantFibre, amount, new Entity());
-
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>金礦石</color>x<color=white>{amount}</color> 來自 {professionName}, 但因背包已滿，掉落在地上.");
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _radiantFiberColor, amount, ref delay);
         }
@@ -618,18 +576,10 @@ internal static class ProfessionSystem
                 
                 if (!fellOnGround)
                 {
-                 if (Enum.TryParse(professionName, out ProfessionType type))
-                    {
-                    professionName = GetProfessionZh(type);
-                    }
                     LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>額外樹苗</color>x<color=white>{quantity}</color> 來自 {professionName}!");
                 }
                 else
                 {
-                    if (Enum.TryParse(professionName, out ProfessionType type))
-                    {
-                    professionName = GetProfessionZh(type);
-                    }
                     LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>額外樹苗</color>x<color=white>{quantity}</color> 來自 {professionName}, 但因背包已滿，部分掉落在地上。");
                 }
             }
@@ -644,10 +594,6 @@ internal static class ProfessionSystem
     {
         if (ServerGameManager.TryAddInventoryItem(playerCharacter, _mutantGrease, mutantGrease))
         {
-            if (Enum.TryParse(professionName, out ProfessionType type))
-            {
-                    professionName = GetProfessionZh(type);
-            }
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>突變油脂</color>x<color=white>{mutantGrease}</color> 來自 {professionName}");
 
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _mutantGreaseColor, mutantGrease, ref delay);
@@ -655,10 +601,6 @@ internal static class ProfessionSystem
         else
         {
             InventoryUtilitiesServer.CreateDropItem(EntityManager, playerCharacter, _mutantGrease, mutantGrease, new Entity());
-            if (Enum.TryParse(professionName, out ProfessionType type))
-            {
-            professionName = GetProfessionZh(type);
-            }
             if (professionLogging) LocalizationService.HandleServerReply(EntityManager, user, $"<color=green>突變油脂</color>x<color=white>{mutantGrease}</color> 來自 {professionName}, 但因背包已滿，掉落在地上.");
             if (sctYield) HandleBonusYieldScrollingText(target, _bonusYieldSCT, _bonusYieldAssetGuid, playerCharacter, userEntity, _mutantGreaseColor, mutantGrease, ref delay);
         }
@@ -725,7 +667,7 @@ internal static class ProfessionMappings
         { new(736318803) }, //sagefish
         { new(-1779269313) }, //bloodsnapper
         { new(67930804) }, //goldenbassriver
-        { PrefabGUIDs.Item_Ingredient_Fish_Corrupted_T03 } 
+        { PrefabGUIDs.Item_Ingredient_Fish_Corrupted_T03 }
     };
 
     static readonly Dictionary<string, List<PrefabGUID>> _fishingAreaDrops = new()
@@ -807,5 +749,14 @@ internal static class ProfessionMappings
         }
 
         return 1;
+    }
+        static string ResolveProfessionZh(IProfession handler)
+    {
+        string name = handler.GetProfessionName();
+        if (Enum.TryParse(name, out ProfessionType t))
+        {
+            return GetProfessionZh(t);
+        }
+        return name;
     }
 }
