@@ -13,6 +13,8 @@ using static Bloodcraft.Systems.Legacies.BloodManager.BloodStats;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
 using static Bloodcraft.Utilities.Progression.ModifyUnitStatBuffSettings;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 using static VCF.Core.Basics.RoleCommands;
 using User = ProjectM.Network.User;
 
@@ -41,7 +43,8 @@ internal static class BloodCommands
         {
             bloodType = BloodSystem.GetBloodTypeFromPrefab(playerBlood.BloodType);
         }
-        else if (!Enum.TryParse(blood, true, out bloodType))
+        else if (!Enum.TryParse(blood, true, out bloodType) &&
+                 !ZhToBloodType.TryGetValue(blood, out bloodType))
         {
             LocalizationService.HandleReply(ctx, "無效的血系，請使用 '.bl l' 查看選項。");
             return;
@@ -81,13 +84,13 @@ internal static class BloodCommands
                 for (int i = 0; i < bloodLegacyStats.Count; i += 6)
                 {
                     var batch = bloodLegacyStats.Skip(i).Take(6);
-                    string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{stat.Key}</color>: <color=white>{stat.Value}</color>"));
-                    LocalizationService.HandleReply(ctx, $"<color=red>{bloodType}</color> 屬性：{bonuses}");
+                    string bonuses = string.Join(", ", batch.Select(stat => $"<color=#00FFFF>{GetBloodStatZh(stat.Key)}</color>: <color=white>{stat.Value}</color>"));
+                    LocalizationService.HandleReply(ctx, $"<color=red>{GetBloodTypeZh(bloodType)}</color> 屬性：{bonuses}");
                 }
             }
             else
             {
-                LocalizationService.HandleReply(ctx, $"尚未為 <color=red>{bloodType}</color> 選擇任何屬性，請使用 <color=white>'.bl lst'</color> 查看可用選項。");
+                LocalizationService.HandleReply(ctx, $"尚未為 <color=red>{GetBloodTypeZh(bloodType)}</color> 選擇任何屬性，請使用 <color=white>'.bl lst'</color> 查看可用選項。");
             }
         }
         else
@@ -210,7 +213,7 @@ internal static class BloodCommands
 
         if (bloodType.Equals(BloodType.GateBoss) || bloodType.Equals(BloodType.None) || bloodType.Equals(BloodType.VBlood))
         {
-            LocalizationService.HandleReply(ctx, $"<color=white>{bloodType}</color> 尚無可用傳承。");
+            LocalizationService.HandleReply(ctx, $"<color=white>{GetBloodTypeZh(bloodType)}</color> 尚無可用傳承。");
             return;
         }
 
@@ -226,7 +229,7 @@ internal static class BloodCommands
                     ResetStats(steamId, bloodType);
                     Buffs.RefreshStats(playerCharacter);
 
-                    LocalizationService.HandleReply(ctx, $"你的 <color=red>{bloodType}</color> 血系屬性已重置！");
+                    LocalizationService.HandleReply(ctx, $"你的 <color=red>{GetBloodTypeZh(bloodType)}</color> 血系屬性已重置！");
                 }
             }
             else
@@ -239,7 +242,7 @@ internal static class BloodCommands
             ResetStats(steamId, bloodType);
             Buffs.RefreshStats(playerCharacter);
 
-            LocalizationService.HandleReply(ctx, $"你的 <color=red>{bloodType}</color> 血系屬性已重置。");
+            LocalizationService.HandleReply(ctx, $"你的 <color=red>{GetBloodTypeZh(bloodType)}</color> 血系屬性已重置。");
         }
     }
 
@@ -255,7 +258,7 @@ internal static class BloodCommands
         var bloodStatsWithCaps = Enum.GetValues(typeof(BloodStatType))
             .Cast<BloodStatType>()
             .Select((stat, index) =>
-                $"<color=yellow>{index + 1}</color>| <color=#00FFFF>{stat}</color>: <color=white>{Misc.FormatPercentStatValue(BloodStatBaseCaps[stat])}</color>")
+                $"<color=yellow>{index + 1}</color>| <color=#00FFFF>{GetBloodStatZh(stat)}</color>: <color=white>{Misc.FormatPercentStatValue(BloodStatBaseCaps[stat])}</color>")
             .ToList();
 
         if (bloodStatsWithCaps.Count == 0)
@@ -314,7 +317,7 @@ internal static class BloodCommands
         BloodHandler.SetLegacyData(steamId, xpData);
 
         Buffs.RefreshStats(playerInfo.CharEntity);
-        LocalizationService.HandleReply(ctx, $"<color=red>{BloodHandler.GetBloodType()}</color> 傳承已設為 [<color=white>{level}</color>]，目標：<color=green>{foundUser.CharacterName}</color>");
+        LocalizationService.HandleReply(ctx, $"<color=red>{GetBloodTypeZh(Bloodhandler.GetBloodType())}</color> 傳承已設為 [<color=white>{level}</color>]，目標：<color=green>{foundUser.CharacterName}</color>");
     }
 
     [Command(name: "list", shortHand: "l", adminOnly: false, usage: ".bl l", description: "Lists blood legacies available.")]
