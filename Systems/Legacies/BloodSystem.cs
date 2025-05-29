@@ -12,6 +12,8 @@ using UnityEngine;
 using static Bloodcraft.Patches.DeathEventListenerSystemPatch;
 using static Bloodcraft.Utilities.Misc.PlayerBoolsManager;
 using static Bloodcraft.Utilities.Progression;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalization;
+using static Bloodcraft.Utilities.EnumLocalization.EnumLocalizationLookup;
 
 namespace Bloodcraft.Systems.Legacies;
 internal static class BloodSystem
@@ -275,7 +277,7 @@ internal static class BloodSystem
         if (newLevel <= _maxBloodLevel)
         {
             LocalizationService.HandleServerReply(EntityManager, user,
-                $"<color=red>{bloodType}</color> legacy improved to [<color=white>{newLevel}</color>]!");
+                $"<color=red>{GetBloodTypeZh(bloodType)}</color> legacy improved to [<color=white>{newLevel}</color>]!");
         }
 
         if (GetPlayerBool(steamID, REMINDERS_KEY))
@@ -312,7 +314,7 @@ internal static class BloodSystem
         if (GetPlayerBool(steamId, BLOOD_LOG_KEY))
         {
             LocalizationService.HandleServerReply(EntityManager, user,
-                $"+<color=yellow>{gainedIntXP}</color> <color=red>{bloodType}</color> <color=#FFC0CB>essence</color> (<color=white>{levelProgress}%</color>)");
+                $"+<color=yellow>{gainedIntXP}</color> <color=red>{GetBloodTypeZh(bloodType)}</color> <color=#FFC0CB>essence</color> (<color=white>{levelProgress}%</color>)");
         }
 
         if (GetPlayerBool(steamId, SCT_PLAYER_BL_KEY))
