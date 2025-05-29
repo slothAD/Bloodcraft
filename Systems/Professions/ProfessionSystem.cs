@@ -128,8 +128,12 @@ internal static class ProfessionSystem
 
         if (handler != null)
         {
-            var professionType = handler.GetProfessionType();
-            var professionName = GetProfessionZh(professionType);
+            var professionNameRaw = handler.GetProfessionName();
+
+            var maybeProfessionType = Enum.GetValues<ProfessionType>()
+                .FirstOrDefault(e => e.ToString() == professionNameRaw);
+
+            var professionName = GetProfessionZh(maybeProfessionType);
 
             if (professionName.Contains("Woodcutting"))
             {
@@ -152,8 +156,10 @@ internal static class ProfessionSystem
         if (!PrefabCollectionSystem._PrefabGuidToEntityMap.TryGetValue(prefabGuid, out Entity prefabEntity)) return;
 
         int level = GetLevel(steamId, handler);
-        var professionType = handler.GetProfessionType();
-        var professionName = GetProfessionZh(professionType);
+        var professionNameRaw = handler.GetProfessionName();
+        var maybeProfessionType = Enum.GetValues<ProfessionType>()
+            .FirstOrDefault(e => e.ToString() == professionNameRaw);
+        var professionName = GetProfessionZh(maybeProfessionType);
 
         bool professionLogging = GetPlayerBool(steamId, PROFESSION_LOG_KEY);
         bool sctYield = GetPlayerBool(steamId, SCT_YIELD_KEY);
@@ -329,8 +335,10 @@ internal static class ProfessionSystem
         Entity userEntity = playerCharacter.GetUserEntity();
         User user = userEntity.GetUser();
 
-        var professionType = handler.GetProfessionType();
-        var professionName = GetProfessionZh(professionType);
+        var professionNameRaw = handler.GetProfessionName();
+        var maybeProfessionType = Enum.GetValues<ProfessionType>()
+            .FirstOrDefault(e => e.ToString() == professionNameRaw);
+        var professionName = GetProfessionZh(maybeProfessionType);
 
         if (leveledUp)
         {

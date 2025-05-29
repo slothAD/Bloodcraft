@@ -13,6 +13,16 @@ public static class EnumLocalizationLookup
     public static string GetProfessionZh(ProfessionType type)
         => EnumLocalization.ProfessionTypeToZh.TryGetValue(type, out var name) ? name : type.ToString();
 
+    public static ProfessionType? GuessProfessionTypeFromName(string name)
+    {
+        foreach (var kvp in EnumLocalization.ProfessionTypeToZh)
+        {
+            if (kvp.Value == name)
+                return kvp.Key;
+        }
+        return null;
+    }
+
 
     // 注意：這些是遊戲內建 enum，使用 .ToString() 作為查找
     public static string GetWeaponStatZh(Enum statType)
