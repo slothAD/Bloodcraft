@@ -235,13 +235,13 @@ internal static class LevelingSystem
             if (newLevel <= _maxPlayerLevel)
             {
                 LocalizationService.HandleServerReply(EntityManager, user,
-                    $"Congratulations, you've reached level <color=white>{newLevel}</color>!");
+                    $"恭喜你升到了 <color=white>{newLevel}</color> 級！");
             }
 
             if (_classes && GetPlayerBool(steamId, REMINDERS_KEY) && !steamId.HasClass(out PlayerClass? _))
             {
                 LocalizationService.HandleServerReply(EntityManager, user,
-                    $"Don't forget to choose a class! Use <color=white>'.class l'</color> to view choices and see what they have to offer with <color=white>'.class lb [Class]'</color> (buffs), <color=white>'.class lsp [Class]'</color> (spells), and <color=white>'.class lst [Class]'</color> (synergies). (toggle reminders with <color=white>'.misc remindme'</color>)");
+                    $"別忘了選擇一個職業！使用 <color=white>'.class l'</color> 查看所有職業，並可透過 <color=white>'.class lb [職業]'</color> 查看增益、<color=white>'.class lsp [職業]'</color> 查看技能、<color=white>'.class lst [職業]'</color> 查看協同效果。（使用 <color=white>'.misc remindme'</color> 開關提示）");
             }
         }
 

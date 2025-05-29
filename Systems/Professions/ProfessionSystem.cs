@@ -330,12 +330,6 @@ internal static class ProfessionSystem
         User user = userEntity.GetUser();
         var professionType = handler.GetProfessionType();
         var professionName = GetProfessionZh(professionType);
-
-        ProfessionType professionType = GuessProfessionTypeFromName(professionNameRaw) ?? 
-            (Enum.TryParse(professionNameRaw, true, out var fallbackType) ? fallbackType : ProfessionType.None);
-        var professionName = GetProfessionZh(professionType);
-
-
         if (leveledUp)
         {
             int newLevel = ConvertXpToLevel(handler.GetProfessionData(steamID).Value);
