@@ -27,7 +27,6 @@ internal static class ServerBootstrapSystemPatches
 {
     static EntityManager EntityManager => Core.EntityManager;
     static ServerGameManager ServerGameManager => Core.ServerGameManager;
-    static SystemService SystemService => Core.SystemService;
 
     static readonly WaitForSeconds _delay = new(1f);
     static readonly WaitForSeconds _newCharacterDelay = new(2.5f);
@@ -511,10 +510,12 @@ internal static class ServerBootstrapSystemPatches
             }
         }
 
+        /*
         if (_eclipse)
         {
-            if (EclipseService.RegisteredUsersAndClientVersions.ContainsKey(steamId)) EclipseService.UnregisterUser(steamId);
+            if (EclipseService.RegisteredUsersAndClientVersions.ContainsKey(steamId)) EclipseService.TryUnregisterUser(steamId);
         }
+        */
 
         if (_prestige && playerCharacter.Exists())
         {
@@ -531,7 +532,8 @@ internal static class ServerBootstrapSystemPatches
             UnbindFamiliarOnUserDisconnected(user, playerCharacter); // need to yeet immediately to account for server restarts where no time after everyone 'logs out'
         }
 
-        if (SteamIdOnlinePlayerInfoCache.ContainsKey(steamId)) HandleDisconnection(steamId, userIndex);
+        // if (SteamIdOnlinePlayerInfoCache.ContainsKey(steamId)) HandleDisconnection(steamId, userIndex);
+        HandleDisconnection(steamId);
     }
 
     [HarmonyPatch(typeof(KickBanSystem_Server), nameof(KickBanSystem_Server.OnUpdate))] // treat this an OnUserDisconnected to account for player swaps
@@ -558,10 +560,12 @@ internal static class ServerBootstrapSystemPatches
                         }
                     }
 
+                    /*
                     if (_eclipse)
                     {
-                        if (EclipseService.RegisteredUsersAndClientVersions.ContainsKey(steamId)) EclipseService.UnregisterUser(steamId);
+                        if (EclipseService.RegisteredUsersAndClientVersions.ContainsKey(steamId)) EclipseService.TryUnregisterUser(steamId);
                     }
+                    */
 
                     if (_prestige)
                     {
@@ -578,7 +582,8 @@ internal static class ServerBootstrapSystemPatches
                         UnbindFamiliarOnUserDisconnected(playerInfo.User, playerInfo.CharEntity);
                     }
 
-                    if (SteamIdOnlinePlayerInfoCache.ContainsKey(steamId)) HandleDisconnection(steamId, playerInfo.User.Index);
+                    // if (SteamIdOnlinePlayerInfoCache.ContainsKey(steamId)) HandleDisconnection(steamId); 
+                    HandleDisconnection(steamId);
                 }
                 
             }

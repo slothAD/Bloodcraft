@@ -57,11 +57,10 @@ internal class QuestService
 
     static QueryDesc _targetUnitQueryDesc;
     static QueryDesc _harvestableResourceQueryDesc;
-
-    static readonly ConcurrentDictionary<PrefabGUID, HashSet<Entity>> _targetCache = [];
     public static IReadOnlyDictionary<PrefabGUID, HashSet<Entity>> TargetCache => _targetCache;
+    static readonly ConcurrentDictionary<PrefabGUID, HashSet<Entity>> _targetCache = [];
 
-    static readonly List<PrefabGUID> _shardBearers = 
+    public static readonly List<PrefabGUID> ShardBearers = 
     [
         PrefabGUIDs.CHAR_Manticore_VBlood,
         PrefabGUIDs.CHAR_ChurchOfLight_Paladin_VBlood,
@@ -70,7 +69,7 @@ internal class QuestService
         PrefabGUIDs.CHAR_Blackfang_Morgana_VBlood
     ];
 
-    static readonly HashSet<string> _filteredTargetUnits =
+    public static readonly HashSet<string> FilteredTargetUnits =
     [
         "Trader",
         "HostileVillager",
@@ -183,9 +182,7 @@ internal class QuestService
                                 PrefabGUID prefabGuid = result.ResolveComponentData<PrefabGUID>();
                                 string prefabName = prefabGuid.GetPrefabName();
 
-                                // Core.Log.LogWarning($"[QuestService] QuestServiceRoutine() - {prefabName}");
-
-                                if (_filteredTargetUnits.Any(unit => prefabName.Contains(unit, StringComparison.OrdinalIgnoreCase)))
+                                if (FilteredTargetUnits.Any(unit => prefabName.Contains(unit, StringComparison.OrdinalIgnoreCase)))
                                     continue;
 
                                 if (!prefabGuidEntityGroups.TryGetValue(prefabGuid, out var entities))
@@ -220,7 +217,7 @@ internal class QuestService
             );
 
 
-            foreach (PrefabGUID prefabGuid in _shardBearers)
+            foreach (PrefabGUID prefabGuid in ShardBearers)
             {
                 _targetCache.TryRemove(prefabGuid, out var _);
             }
@@ -245,26 +242,8 @@ internal class QuestService
                 yield return null;
             }
 
-            // Core.Log.LogWarning($"[QuestService] TargetCache - {TargetCache.Count}");
-
             _lastUpdate = DateTime.UtcNow;
             yield return _routineDelay;
-
-            /*
-            if (_hasReset)
-            {
-                yield return _routineDelay;
-            }
-            else if (_shouldReset)
-            {
-                _hasReset = true;
-                yield return _startDelay;
-            }
-            else
-            {
-                yield return _routineDelay;
-            }
-            */
         }
     }
     static void InitializeCraftables()

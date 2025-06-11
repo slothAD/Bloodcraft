@@ -13,8 +13,6 @@ namespace Bloodcraft.Patches;
 [HarmonyPatch]
 internal static class ChatMessageSystemPatch
 {
-    static EntityManager EntityManager => Core.EntityManager;
-
     static readonly bool _eclipse = ConfigService.Eclipse;
 
     static readonly Regex _regexMAC = new(@";mac([^;]+)$");
@@ -41,7 +39,7 @@ internal static class ChatMessageSystemPatch
                 {
                     // Core.Log.LogWarning($"[ChatMessageSystem] Handling Eclipse client message...");
                     EclipseService.HandleClientMessage(originalMessage);
-                    EntityManager.DestroyEntity(entity);
+                    entity.Destroy(true);
                 }
             }
         }
